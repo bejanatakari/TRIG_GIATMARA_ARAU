@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TRIG PROFESSIONAL | GM GEAR ARAU</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230ea5e9'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/></svg>">
+</head>
+<body>
+
+  <!-- LOGIN MODAL / SCREEN OVERLAY -->
+  <div id="login-overlay" class="modal-overlay active" style="z-index: 1000; background: #070a12;">
+    <div class="modal-box" style="max-width: 440px; border-color: #0ea5e9; box-shadow: 0 0 30px rgba(14,165,233,0.2);">
+      <div class="modal-header" style="text-align: center; display: block; border-bottom: none; padding-top: 30px;">
+        <div class="logo-badge" style="width: 56px; height: 56px; margin: 0 auto 12px auto; font-size: 28px;">⚙️</div>
+        <h2 style="color: #fff; font-size: 20px; font-weight: 800;">TRIG PROFESSIONAL</h2>
+        <p style="color: #0ea5e9; font-size: 13px; font-weight: 700; margin-top: 4px; letter-spacing: 0.05em;">GM GEAR ARAU</p>
+        <p style="color: var(--text-dim); font-size: 12px; margin-top: 4px;">Sistem Pengurusan Bengkel Automotif & POS</p>
+      </div>
+      <div class="modal-body" style="padding-top: 10px;">
+        <div id="login-error-alert" style="display: none; background: rgba(239, 68, 68, 0.15); border: 1px solid #ef4444; color: #f87171; padding: 10px; border-radius: 6px; font-size: 12.5px; margin-bottom: 14px;"></div>
+        <form id="login-form">
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label class="form-label">Emel Pengguna</label>
+            <input type="email" id="login-email" class="form-control" placeholder="gmgearkubangpasu@gmail.com" required value="gmgearkubangpasu@gmail.com">
+          </div>
+          <div class="form-group" style="margin-bottom: 20px;">
+            <label class="form-label">Kata Laluan</label>
+            <input type="password" id="login-password" class="form-control" placeholder="••••••••" required value="Admin@GMGear2026!">
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">
+            <span>LOG MASUK SISTEM</span> →
+          </button>
+        </form>
+
+        <div style="margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--border-color); font-size: 11.5px; color: var(--text-dim); line-height: 1.6;">
+          <strong style="color: var(--text-muted);">Akaun Pengguna Demo Sedia Ada:</strong><br>
+          • <strong>Admin:</strong> gmgearkubangpasu@gmail.com (Kata Laluan: <code>Admin@GMGear2026!</code>)<br>
+          • <strong>Juruwang:</strong> juruwang@gmgear.my (Kata Laluan: <code>Cashier@123</code>)<br>
+          • <strong>Mekanik:</strong> mekanik@gmgear.my (Kata Laluan: <code>Mechanic@123</code>)
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- APPLICATION MAIN SHELL -->
+  <div id="app-layout">
+    
+    <!-- SIDEBAR NAVIGATION -->
+    <aside class="sidebar" id="main-sidebar">
+      <div class="sidebar-header">
+        <div class="logo-badge" id="sidebar-logo-container">⚙️</div>
+        <div class="brand-text">
+          <div class="title" id="sidebar-company-name">GM GEAR ARAU</div>
+          <div class="subtitle">TRIG PROFESSIONAL</div>
+        </div>
+      </div>
+
+      <nav class="sidebar-menu">
+        <div class="menu-category">Platform Servis</div>
+        <div class="nav-item" id="sidebar-portal-btn" onclick="app.showPortal()" style="border: 1px dashed rgba(14,165,233,0.5); color: #38bdf8; background: rgba(14,165,233,0.08); font-weight: 700; margin-bottom: 8px;">
+          <span class="icon">🔄</span> Platform Pemilihan
+        </div>
+
+        <div class="menu-category">Utama</div>
+        <div class="nav-item active" data-screen="dashboard">
+          <span class="icon">📊</span> Papan Pemuka
+        </div>
+
+        <div class="menu-category" id="sidebar-pos-category-title">POS & Servis Kenderaan</div>
+        <div class="nav-item" data-screen="pos-auto" id="nav-pos-auto">
+          <span class="icon">🚗</span> Servis Auto
+        </div>
+        <div class="nav-item" data-screen="pos-paint" id="nav-pos-paint">
+          <span class="icon">🎨</span> Ketuk & Cat
+        </div>
+        <div class="nav-item" data-screen="pos-moto" id="nav-pos-moto">
+          <span class="icon">🏍</span> Servis Motosikal
+        </div>
+
+        <div class="menu-category">Operasi Bengkel</div>
+        <div class="nav-item" data-screen="jobs">
+          <span class="icon">📋</span> Kad Kerja (Jobs)
+        </div>
+        <div class="nav-item" data-screen="quotations">
+          <span class="icon">📝</span> Sebut Harga
+        </div>
+        <div class="nav-item" data-screen="customers">
+          <span class="icon">👥</span> Pelanggan
+        </div>
+        <div class="nav-item" data-screen="vehicles">
+          <span class="icon">🚘</span> Kenderaan
+        </div>
+        <div class="nav-item" data-screen="reminders">
+          <span class="icon">⏰</span> Peringatan Servis
+        </div>
+
+        <div class="menu-category">Inventori & Kod QR</div>
+        <div class="nav-item" data-screen="inventory">
+          <span class="icon">📦</span> Senarai Alat Ganti
+        </div>
+        <div class="nav-item" data-screen="qr-parts">
+          <span class="icon">📱</span> Imbas / Cetak QR
+        </div>
+        <div class="nav-item" data-screen="stock-ledger">
+          <span class="icon">📑</span> Lejar Pergerakan Stok
+        </div>
+        <div class="nav-item" data-screen="suppliers">
+          <span class="icon">🏭</span> Pembekal & Belian
+        </div>
+
+        <div class="menu-category">Kewangan & Jualan</div>
+        <div class="nav-item" data-screen="invoices">
+          <span class="icon">🧾</span> Invois
+        </div>
+        <div class="nav-item" data-screen="receipts">
+          <span class="icon">💵</span> Resit Bayaran
+        </div>
+        <div class="nav-item" data-screen="ar-aging">
+          <span class="icon">⏳</span> Akaun Belum Terima
+        </div>
+        <div class="nav-item" data-screen="cashier-closing">
+          <span class="icon">🔒</span> Penutupan Harian
+        </div>
+        <div class="nav-item" data-screen="reports">
+          <span class="icon">📈</span> Laporan & Prestasi
+        </div>
+
+        <div class="menu-category admin-only">Pentadbir (Admin)</div>
+        <div class="nav-item admin-only" data-screen="users">
+          <span class="icon">👤</span> Urus Pengguna
+        </div>
+        <div class="nav-item admin-only" data-screen="audit-log">
+          <span class="icon">🛡</span> Log Audit
+        </div>
+        <div class="nav-item admin-only" data-screen="settings">
+          <span class="icon">⚙️</span> Tetapan Syarikat
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-profile-badge">
+          <div class="user-avatar" id="user-avatar-text">A</div>
+          <div class="user-info">
+            <div class="u-name" id="user-display-name">Pengurus Utama</div>
+            <div class="u-role" id="user-role-badge">ADMIN</div>
+          </div>
+          <button id="btn-logout" class="btn btn-sm btn-secondary" style="margin-left: auto; padding: 4px 8px;" title="Log Keluar">🚪</button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN BODY WRAPPER -->
+    <main class="main-wrapper">
+      <!-- TOP NAVIGATION BAR -->
+      <header class="top-bar">
+        <div class="top-left">
+          <button class="mobile-menu-btn" id="mobile-toggle-btn">☰</button>
+          <div class="workshop-header-badge">
+            <span class="ws-name" id="topbar-company-title">GM GEAR ARAU</span>
+            <span class="ws-location" id="topbar-company-address">Arau, Perlis | Sistem Pengurusan Bengkel & POS</span>
+          </div>
+          <div id="topbar-mode-container" style="display: flex; align-items: center; gap: 8px; margin-left: 18px;">
+            <span id="topbar-active-mode-badge" class="badge badge-auto" style="font-size: 12px; padding: 6px 12px; font-weight: 800; cursor: pointer;" onclick="app.showPortal()" title="Klik untuk tukar mod servis">🚗 MOD: SERVIS AUTO</span>
+            <button class="btn btn-sm btn-secondary" id="btn-switch-service-mode" onclick="app.showPortal()" style="border-color: #0ea5e9; color: #38bdf8; font-weight: 700;">
+              🔄 Tukar Mod Servis
+            </button>
+          </div>
+        </div>
+
+        <div class="top-right">
+          <button class="global-search-btn" id="open-global-search">
+            <span>🔍 Carian Pantas...</span>
+            <span class="shortcut-kbd">Ctrl+K</span>
+          </button>
+          <button class="btn btn-sm btn-primary" id="top-btn-new-job">
+            + Kad Kerja Baharu
+          </button>
+          <button class="btn btn-sm btn-secondary" id="top-btn-scan-qr">
+            📷 Imbas Kod QR
+          </button>
+        </div>
+      </header>
+
+      <!-- CONTENT BODY (SCREENS CONTAINER) -->
+      <section class="content-body" id="main-content-area">
+
+        <!-- ========================================== -->
+        <!-- SCREEN 0: SERVICE HUB / PLATFORM PEMILIHAN -->
+        <!-- ========================================== -->
+        <div class="app-screen" id="screen-portal" style="display: none;">
+          <div style="text-align: center; max-width: 860px; margin: 10px auto 36px auto;">
+            <div style="display: inline-block; background: rgba(14, 165, 233, 0.15); border: 1px solid rgba(14, 165, 233, 0.3); color: #38bdf8; font-size: 12px; font-weight: 800; letter-spacing: 0.08em; padding: 6px 16px; border-radius: 20px; margin-bottom: 14px; text-transform: uppercase;">
+              Platform Pengurusan Bengkel Automotif GM GEAR ARAU
+            </div>
+            <h1 style="font-size: 32px; font-weight: 900; color: #fff; letter-spacing: -0.02em;">PILIH KATEGORI SERVIS</h1>
+            <p style="color: var(--text-muted); font-size: 14.5px; line-height: 1.6; margin-top: 8px;">
+              Sila pilih kategori servis untuk memulakan tugasan. Sistem akan <strong>mengasingkan paparan kerja, invois, kad kerja, alat ganti dan laporan</strong> khusus mengikut kategori pilihan anda. Anda boleh kembali ke menu ini bila-bila masa melalui butang <strong>"🔄 Tukar Mod Servis"</strong> di bar atas.
+            </p>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); gap: 24px; max-width: 1100px; margin: 0 auto 30px auto;">
+            
+            <!-- KATEGORI 1: SERVIS AUTO -->
+            <div class="service-portal-card portal-card-auto" onclick="app.selectServiceMode('AUTO_SERVICE')">
+              <div class="portal-card-header">
+                <div class="portal-card-icon">🚗</div>
+                <span class="badge badge-auto" style="font-size: 11px;">KATEGORI 1</span>
+              </div>
+              <h2 class="portal-card-title">SERVIS KENDERAAN AUTO</h2>
+              <p class="portal-card-desc">
+                Khusus servis mekanikal kereta: Minyak enjin, minyak transmisi/CVT, penapis, brek, suspensi, sistem penyejuk, pendingin hawa dan diagnostik enjin.
+              </p>
+              <div class="portal-card-features">
+                <div>✓ Kad Kerja & Diagnosis Kereta Sahaja</div>
+                <div>✓ Pilihan Pantas Minyak & Penapis Auto</div>
+                <div>✓ Invois & Sebut Harga Khas Servis Auto</div>
+                <div>✓ Penolakan Stok Alat Ganti Auto</div>
+              </div>
+              <button class="btn btn-primary btn-lg" style="width: 100%; margin-top: 20px; font-weight: 700;">
+                Buka Servis Auto →
+              </button>
+            </div>
+
+            <!-- KATEGORI 2: KETUK & CAT -->
+            <div class="service-portal-card portal-card-paint" onclick="app.selectServiceMode('BODY_PAINT')">
+              <div class="portal-card-header">
+                <div class="portal-card-icon">🎨</div>
+                <span class="badge badge-paint" style="font-size: 11px;">KATEGORI 2</span>
+              </div>
+              <h2 class="portal-card-title">MENGETUK & MENGECAT</h2>
+              <p class="portal-card-desc">
+                Aliran kerja khusus Body & Paint: Pembaikan kemek, simen putty halus, primer 2K, semburan cat oven, lapisan clear coat, polishing dan kawalan kualiti QC.
+              </p>
+              <div class="portal-card-features">
+                <div>✓ Pemilih Visual Panel Rosak & Kemek</div>
+                <div>✓ Formulasi Kod Warna (Colour Code Kilang)</div>
+                <div>✓ Gambar Sebelum / Semasa / Selepas</div>
+                <div>✓ Laporan Kos Bahan vs Upah Ketuk/Cat</div>
+              </div>
+              <button class="btn btn-warning btn-lg" style="width: 100%; margin-top: 20px; color: #000; font-weight: 800;">
+                Buka Ketuk & Cat →
+              </button>
+            </div>
+
+            <!-- KATEGORI 3: SERVIS MOTOSIKAL -->
+            <div class="service-portal-card portal-card-moto" onclick="app.selectServiceMode('MOTORCYCLE')">
+              <div class="portal-card-header">
+                <div class="portal-card-icon">🏍</div>
+                <span class="badge badge-moto" style="font-size: 11px;">KATEGORI 3</span>
+              </div>
+              <h2 class="portal-card-title">SERVIS MOTOSIKAL</h2>
+              <p class="portal-card-desc">
+                Aliran kerja khusus kenderaan dua roda: Minyak 4T/2T fully synthetic, set rantai & sprocket (DID/RK), palam pencucuh, brek, bateri dan talaan karburator/Fi.
+              </p>
+              <div class="portal-card-features">
+                <div>✓ Maklumat Enjin & Casis Motosikal Sahaja</div>
+                <div>✓ Pilihan Pantas Rantai & Minyak 4T</div>
+                <div>✓ Invois Pantas & Resit Terma 80mm</div>
+                <div>✓ Penolakan Stok Alat Ganti Motosikal</div>
+              </div>
+              <button class="btn btn-success btn-lg" style="width: 100%; margin-top: 20px; font-weight: 700;">
+                Buka Servis Motosikal →
+              </button>
+            </div>
+
+          </div>
+
+          <div style="text-align: center; margin-top: 10px;">
+            <button class="btn btn-secondary" onclick="app.selectServiceMode('ALL')" style="padding: 10px 24px; font-size: 13.5px; border-color: #334155;">
+              🌐 Paparan Gabungan Semua Servis (Mod Pengurusan Penuh)
+            </button>
+          </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 1: DASHBOARD -->
+        <!-- ========================================== -->
+        <div class="app-screen" id="screen-dashboard">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+            <div>
+              <h1 style="font-size: 24px; color: #fff;">Papan Pemuka Bengkel</h1>
+              <p style="color: var(--text-muted); font-size: 13px;">Ringkasan operasi harian, pendapatan dan status servis semasa.</p>
+            </div>
+            <button class="btn btn-sm btn-secondary" id="refresh-dashboard-btn">🔄 Muat Semula Data</button>
+          </div>
+
+          <!-- KPI Cards -->
+          <div class="kpi-grid">
+            <div class="kpi-card kpi-green">
+              <div class="kpi-header">
+                <span class="kpi-title">Kutipan Hari Ini</span>
+                <span class="kpi-icon">💰</span>
+              </div>
+              <div class="kpi-value" id="kpi-today-collection">RM 0.00</div>
+              <div class="kpi-sub">Bayaran tunai & e-dompet hari ini</div>
+            </div>
+
+            <div class="kpi-card kpi-blue">
+              <div class="kpi-header">
+                <span class="kpi-title">Jualan Invois Hari Ini</span>
+                <span class="kpi-icon">🧾</span>
+              </div>
+              <div class="kpi-value" id="kpi-today-revenue">RM 0.00</div>
+              <div class="kpi-sub">Jumlah invois dijana hari ini</div>
+            </div>
+
+            <div class="kpi-card kpi-danger">
+              <div class="kpi-header">
+                <span class="kpi-title">Baki Belum Dikutip (AR)</span>
+                <span class="kpi-icon">⏳</span>
+              </div>
+              <div class="kpi-value" id="kpi-outstanding">RM 0.00</div>
+              <div class="kpi-sub">Invois diluluskan & belum dibayar</div>
+            </div>
+
+            <div class="kpi-card kpi-amber">
+              <div class="kpi-header">
+                <span class="kpi-title">Kerja Dalam Proses</span>
+                <span class="kpi-icon">🔧</span>
+              </div>
+              <div class="kpi-value" id="kpi-jobs-progress">0</div>
+              <div class="kpi-sub">Termasuk mekanikal, mengetuk & cat</div>
+            </div>
+
+            <div class="kpi-card kpi-blue">
+              <div class="kpi-header">
+                <span class="kpi-title">Kenderaan Siap / QC</span>
+                <span class="kpi-icon">✅</span>
+              </div>
+              <div class="kpi-value" id="kpi-vehicles-ready">0</div>
+              <div class="kpi-sub">Menunggu pengambilan pemilik</div>
+            </div>
+
+            <div class="kpi-card kpi-danger">
+              <div class="kpi-header">
+                <span class="kpi-title">Stok Rendah</span>
+                <span class="kpi-icon">⚠️</span>
+              </div>
+              <div class="kpi-value" id="kpi-low-stock">0</div>
+              <div class="kpi-sub">Perlu pesanan semula segera</div>
+            </div>
+          </div>
+
+          <!-- Service Category Breakdown Cards -->
+          <h3 style="font-size: 16px; margin: 24px 0 14px 0; color: #fff;">Prestasi Mengikut 3 Kategori Servis Utama</h3>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 24px;">
+            <div class="card" style="border-left: 4px solid var(--accent-auto); margin-bottom: 0;">
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <div>
+                  <h4 style="color: #38bdf8; font-size: 15px;">🚗 Servis Kenderaan Auto</h4>
+                  <div style="font-size: 22px; font-weight: 800; color: #fff; margin-top: 6px;" id="cat-stat-auto-rev">RM 0.00</div>
+                  <div style="font-size: 12px; color: var(--text-dim); margin-top: 4px;" id="cat-stat-auto-jobs">0 Kerja Selesai / Sedang Jalan</div>
+                </div>
+                <div style="font-size: 32px; opacity: 0.3;">🚗</div>
+              </div>
+            </div>
+
+            <div class="card" style="border-left: 4px solid var(--accent-paint); margin-bottom: 0;">
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <div>
+                  <h4 style="color: #fbbf24; font-size: 15px;">🎨 Mengetuk & Mengecat</h4>
+                  <div style="font-size: 22px; font-weight: 800; color: #fff; margin-top: 6px;" id="cat-stat-paint-rev">RM 0.00</div>
+                  <div style="font-size: 12px; color: var(--text-dim); margin-top: 4px;" id="cat-stat-paint-jobs">0 Kerja Mengetuk, Cat & QC</div>
+                </div>
+                <div style="font-size: 32px; opacity: 0.3;">🎨</div>
+              </div>
+            </div>
+
+            <div class="card" style="border-left: 4px solid var(--accent-moto); margin-bottom: 0;">
+              <div style="display: flex; align-items: center; justify-content: space-between;">
+                <div>
+                  <h4 style="color: #34d399; font-size: 15px;">🏍 Servis Motosikal</h4>
+                  <div style="font-size: 22px; font-weight: 800; color: #fff; margin-top: 6px;" id="cat-stat-moto-rev">RM 0.00</div>
+                  <div style="font-size: 12px; color: var(--text-dim); margin-top: 4px;" id="cat-stat-moto-jobs">0 Servis Motosikal & Rantai</div>
+                </div>
+                <div style="font-size: 32px; opacity: 0.3;">🏍</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Invoices & Top Parts Tables -->
+          <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px;">
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">Invois Terkini</span>
+                <button class="btn btn-sm btn-secondary" onclick="app.navigate('invoices')">Lihat Semua →</button>
+              </div>
+              <div class="table-responsive">
+                <table class="data-table" id="dashboard-recent-invoices-table">
+                  <thead>
+                    <tr>
+                      <th>No. Invois</th>
+                      <th>Kategori</th>
+                      <th>Pelanggan</th>
+                      <th>Kenderaan</th>
+                      <th>Jumlah (RM)</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td colspan="6" style="text-align: center; color: var(--text-dim);">Memuatkan rekod...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">Alat Ganti Terlaris</span>
+              </div>
+              <div id="dashboard-top-parts-list">
+                <p style="color: var(--text-dim); font-size: 13px;">Memuatkan data alat ganti...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 2: POS - THREE SERVICE TABS -->
+        <!-- ========================================== -->
+        <div class="app-screen" id="screen-pos" style="display: none;">
+          
+          <!-- THREE LARGE TABS -->
+          <div class="pos-tabs-container">
+            <div class="pos-service-tab tab-auto active" data-pos-tab="AUTO_SERVICE">
+              <div class="pos-tab-icon">🚗</div>
+              <div class="pos-tab-info">
+                <div class="tab-name">Servis Kenderaan Auto</div>
+                <div class="tab-desc">Minyak enjin, brek, suspensi, diagnostik enjin & servis am</div>
+              </div>
+            </div>
+
+            <div class="pos-service-tab tab-paint" data-pos-tab="BODY_PAINT">
+              <div class="pos-tab-icon">🎨</div>
+              <div class="pos-tab-info">
+                <div class="tab-name">Mengetuk & Mengecat</div>
+                <div class="tab-desc">Pembaikan kemek, simen putty, cat 2K oven & polishing</div>
+              </div>
+            </div>
+
+            <div class="pos-service-tab tab-moto" data-pos-tab="MOTORCYCLE">
+              <div class="pos-tab-icon">🏍</div>
+              <div class="pos-tab-info">
+                <div class="tab-name">Servis Motosikal</div>
+                <div class="tab-desc">Minyak 4T/2T, rantai & sprocket, tayar, brek & talaan enjin</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- POS ORDER WORKFLOW FORM -->
+          <div class="card" id="pos-main-card">
+            <div class="card-header">
+              <span class="card-title" id="pos-form-title">🚗 Pendaftaran Servis Kenderaan Auto</span>
+              <span class="badge badge-auto" id="pos-active-badge">AUTO SERVICE</span>
+            </div>
+
+            <form id="pos-order-form">
+              <!-- Customer & Vehicle Selection Section -->
+              <div class="form-grid">
+                <div class="form-group">
+                  <label class="form-label">Pilih Pelanggan *</label>
+                  <select id="pos-customer-select" class="form-control" required>
+                    <option value="">-- Sila Pilih Pelanggan --</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Pilih Kenderaan *</label>
+                  <select id="pos-vehicle-select" class="form-control" required>
+                    <option value="">-- Pilih Kenderaan Pelanggan --</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Perbatuan Semasa (Mileage KM)</label>
+                  <input type="number" id="pos-mileage" class="form-control" placeholder="Contoh: 45000">
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Tugaskan Mekanik / Juruteknik</label>
+                  <select id="pos-technician-select" class="form-control">
+                    <option value="">-- Pilih Mekanik --</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- General Complaints & Diagnosis -->
+              <div class="form-grid">
+                <div class="form-group" style="grid-column: span 2;">
+                  <label class="form-label">Aduan / Masalah Dilaporkan Pelanggan</label>
+                  <input type="text" id="pos-complaint" class="form-control" placeholder="Contoh: Enjin bergegar semasa berhenti, brek berbunyi nyaring">
+                </div>
+                <div class="form-group" style="grid-column: span 2;">
+                  <label class="form-label">Diagnosis Mekanik & Syor Pembaikan</label>
+                  <input type="text" id="pos-diagnosis" class="form-control" placeholder="Contoh: Pad brek haus, mounting enjin pecah sebelah kiri">
+                </div>
+              </div>
+
+              <!-- SPECIALIZED BODY & PAINT SECTION (Visible only on BODY_PAINT Tab) -->
+              <div id="pos-body-paint-section" style="display: none; background: rgba(217, 119, 6, 0.05); border: 1px solid rgba(217, 119, 6, 0.3); border-radius: var(--radius-md); padding: 18px; margin: 18px 0;">
+                <h4 style="color: #fbbf24; margin-bottom: 12px; font-size: 15px;">🎨 Butiran Khusus Mengetuk & Mengecat Kenderaan</h4>
+                
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label class="form-label">Nama Warna Cat</label>
+                    <input type="text" id="bp-paint-colour" class="form-control" placeholder="Contoh: Ocean Blue, Glittering Silver">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Kod Warna Cat (Colour Code)</label>
+                    <input type="text" id="bp-paint-code" class="form-control" placeholder="Contoh: S28, B99, NH904M">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Anggaran Kuantiti Cat (Liter/Tin)</label>
+                    <input type="number" step="0.1" id="bp-paint-qty" class="form-control" value="1.0">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Anggaran Tempoh Kerja (Hari)</label>
+                    <input type="number" id="bp-estimated-days" class="form-control" value="3">
+                  </div>
+                </div>
+
+                <div style="margin: 14px 0;">
+                  <label class="form-label">Pilih Panel Yang Rosak / Perlu Dicat:</label>
+                  <div class="damage-panel-grid" id="bp-panels-container">
+                    <!-- Populated dynamically via JS -->
+                  </div>
+                </div>
+
+                <div style="margin: 14px 0;">
+                  <label class="form-label">Jenis Kerosakan:</label>
+                  <div style="display: flex; flex-wrap: wrap; gap: 10px;" id="bp-damage-types-container">
+                    <label class="panel-checkbox-label"><input type="checkbox" value="Kemek"> <span>Kemek (Dent)</span></label>
+                    <label class="panel-checkbox-label"><input type="checkbox" value="Calar Tajam"> <span>Calar Tajam (Scratch)</span></label>
+                    <label class="panel-checkbox-label"><input type="checkbox" value="Pecah / Rekah"> <span>Pecah / Rekah (Crack)</span></label>
+                    <label class="panel-checkbox-label"><input type="checkbox" value="Karat / Reput"> <span>Karat / Reput (Rust)</span></label>
+                    <label class="panel-checkbox-label"><input type="checkbox" value="Kemalangan Teruk"> <span>Kerosakan Kemalangan</span></label>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Kaedah & Fasa Pembaikan</label>
+                  <input type="text" id="bp-repair-method" class="form-control" placeholder="Contoh: Ketuk panel fender, simen halus, primer 2K, semburan oven & 2 lapis clear coat">
+                </div>
+              </div>
+
+              <!-- PARTS, MATERIALS & LABOUR TABLE -->
+              <div style="margin: 24px 0;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
+                  <h4 style="font-size: 15px; color: #fff;">Senarai Alat Ganti, Bahan & Upah Servis</h4>
+                  <div style="display: flex; gap: 8px;">
+                    <button type="button" class="btn btn-sm btn-secondary" id="pos-btn-scan-part-qr">📷 Imbas Kod QR Alat Ganti</button>
+                    <button type="button" class="btn btn-sm btn-primary" id="pos-btn-add-item-row">+ Tambah Baris Manual</button>
+                  </div>
+                </div>
+
+                <div class="table-responsive">
+                  <table class="data-table" id="pos-items-table">
+                    <thead>
+                      <tr>
+                        <th style="width: 140px;">Jenis</th>
+                        <th>Keterangan / Nama Alat Ganti</th>
+                        <th style="width: 110px;">SKU</th>
+                        <th style="width: 90px;">Kuantiti</th>
+                        <th style="width: 130px;">Harga Seunit (RM)</th>
+                        <th style="width: 130px;">Jumlah (RM)</th>
+                        <th style="width: 60px;">Tindakan</th>
+                      </tr>
+                    </thead>
+                    <tbody id="pos-items-tbody">
+                      <!-- Dynamic rows -->
+                    </tbody>
+                  </table>
+                </div>
+
+                <!-- Totals and Action Buttons -->
+                <div style="display: flex; justify-content: flex-end; margin-top: 20px;">
+                  <div style="width: 320px; background: rgba(0,0,0,0.2); padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px;">
+                      <span style="color: var(--text-muted);">Jumlah Alat Ganti:</span>
+                      <strong id="pos-summary-parts">RM 0.00</strong>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px;">
+                      <span style="color: var(--text-muted);">Jumlah Bahan Cat/Simen:</span>
+                      <strong id="pos-summary-materials">RM 0.00</strong>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px;">
+                      <span style="color: var(--text-muted);">Jumlah Upah Kerja:</span>
+                      <strong id="pos-summary-labour">RM 0.00</strong>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 13px;">
+                      <span style="color: var(--text-muted);">Diskaun (RM):</span>
+                      <input type="number" id="pos-discount" class="form-control" style="width: 110px; padding: 4px 8px; text-align: right;" value="0.00">
+                    </div>
+                    <div style="border-top: 1px solid var(--border-color); padding-top: 10px; margin-top: 10px; display: flex; justify-content: space-between; font-size: 17px;">
+                      <span style="font-weight: 800; color: #fff;">Anggaran Jumlah:</span>
+                      <strong style="color: #38bdf8;" id="pos-grand-total">RM 0.00</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Form Submit Controls -->
+              <div style="display: flex; gap: 12px; justify-content: flex-end; border-top: 1px solid var(--border-color); padding-top: 18px;">
+                <button type="button" class="btn btn-secondary" onclick="app.resetPosForm()">Set Semula</button>
+                <button type="button" class="btn btn-warning" id="pos-btn-save-quotation">📄 Simpan Sebut Harga</button>
+                <button type="submit" class="btn btn-primary btn-lg" id="pos-btn-create-job">
+                  📋 Buka Kad Kerja (Work Order)
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 3: WORK ORDERS / JOB CARDS -->
+        <!-- ========================================== -->
+        <div class="app-screen" id="screen-jobs" style="display: none;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+            <div>
+              <h1 style="font-size: 24px; color: #fff;">Pengurusan Kad Kerja (Work Orders)</h1>
+              <p style="color: var(--text-muted); font-size: 13px;">Jejak status pembaikan, fasa ketuk & cat, alat ganti serta penukaran ke invois rasmi.</p>
+            </div>
+            <div style="display: flex; gap: 10px;">
+              <select id="jobs-filter-service" class="form-control" style="width: 180px;">
+                <option value="">Semua Kategori</option>
+                <option value="AUTO_SERVICE">🚗 Servis Auto</option>
+                <option value="BODY_PAINT">🎨 Ketuk & Cat</option>
+                <option value="MOTORCYCLE">🏍 Servis Motosikal</option>
+              </select>
+              <button class="btn btn-primary" onclick="app.navigate('pos-auto')">+ Kad Kerja Baharu</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="table-responsive">
+              <table class="data-table" id="jobs-data-table">
+                <thead>
+                  <tr>
+                    <th>No. Kad Kerja</th>
+                    <th>Kategori</th>
+                    <th>Pelanggan</th>
+                    <th>No. Pendaftaran</th>
+                    <th>Model</th>
+                    <th>Mekanik</th>
+                    <th>Status</th>
+                    <th>Anggaran (RM)</th>
+                    <th>Tindakan</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Populated via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 4: INVOICES -->
+        <!-- ========================================== -->
+        <div class="app-screen" id="screen-invoices" style="display: none;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+            <div>
+              <h1 style="font-size: 24px; color: #fff;">Pengurusan Invois GM GEAR ARAU</h1>
+              <p style="color: var(--text-muted); font-size: 13px;">Kelulusan transaksi selamat, penolakan stok lejar, bayaran deposit & cetakan A4.</p>
+            </div>
+            <div style="display: flex; gap: 10px;">
+              <select id="invoices-filter-service" class="form-control" style="width: 170px;">
+                <option value="">Semua Kategori</option>
+                <option value="AUTO_SERVICE">🚗 Servis Auto</option>
+                <option value="BODY_PAINT">🎨 Ketuk & Cat</option>
+                <option value="MOTORCYCLE">🏍 Servis Motosikal</option>
+              </select>
+              <select id="invoices-filter-status" class="form-control" style="width: 170px;">
+                <option value="">Semua Status</option>
+                <option value="DRAFT">DRAFT</option>
+                <option value="APPROVED">APPROVED</option>
+                <option value="PARTIALLY_PAID">PARTIALLY PAID</option>
+                <option value="PAID">PAID</option>
+                <option value="CANCELLED">CANCELLED</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="table-responsive">
+              <table class="data-table" id="invoices-data-table">
+                <thead>
+                  <tr>
+                    <th>No. Invois</th>
+                    <th>Kategori</th>
+                    <th>Pelanggan</th>
+                    <th>No. Plat</th>
+                    <th>Tarikh</th>
+                    <th>Jumlah (RM)</th>
+                    <th>Baki (RM)</th>
+                    <th>Status</th>
+                    <th>Tindakan</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Populated via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 5: INVENTORY & QR PARTS -->
+        <!-- ========================================== -->
+        <div class="app-screen" id="screen-inventory" style="display: none;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+            <div>
+              <h1 style="font-size: 24px; color: #fff;">Inventori Alat Ganti & Bahan Bengkel</h1>
+              <p style="color: var(--text-muted); font-size: 13px;">Pengurusan stok automotif, cetakan label kod QR, pemantauan paras amaran minimum.</p>
+            </div>
+            <div style="display: flex; gap: 10px;">
+              <button class="btn btn-secondary" id="btn-open-stock-adj">⚖️ Pelarasan Stok</button>
+              <button class="btn btn-primary" id="btn-open-add-inventory">+ Tambah Alat Ganti</button>
+            </div>
+          </div>
+
+          <div class="card">
+            <div style="display: flex; gap: 14px; margin-bottom: 16px;">
+              <input type="text" id="inventory-search-input" class="form-control" placeholder="Cari nama alat ganti, SKU, lokasi rak..." style="max-width: 320px;">
+              <select id="inventory-cat-filter" class="form-control" style="max-width: 200px;">
+                <option value="">Semua Kategori</option>
+                <option value="Lubricants">Lubricants / Minyak</option>
+                <option value="Engine Parts">Engine Parts</option>
+                <option value="Brake">Brake / Brek</option>
+                <option value="Motorcycle Parts">Motorcycle Parts</option>
+                <option value="Paint">Paint / Cat 2K</option>
+                <option value="Primer">Primer & Clear Coat</option>
+                <option value="Body Repair Materials">Body Repair Materials</option>
+                <option value="Tyres">Tyres / Tayar</option>
+                <option value="Electrical">Electrical / Bateri</option>
+                <option value="Consumables">Consumables</option>
+              </select>
+              <label style="display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-muted); cursor: pointer;">
+                <input type="checkbox" id="inventory-low-stock-check">
+                <span>Hanya Stok Rendah</span>
+              </label>
+            </div>
+
+            <div class="table-responsive">
+              <table class="data-table" id="inventory-data-table">
+                <thead>
+                  <tr>
+                    <th>SKU</th>
+                    <th>Nama Alat Ganti</th>
+                    <th>Kategori</th>
+                    <th>Jenama</th>
+                    <th>Lokasi</th>
+                    <th>Kos (RM)</th>
+                    <th>Jualan (RM)</th>
+                    <th>Baki Stok</th>
+                    <th>Tindakan / Kod QR</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Populated via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 6: CUSTOMERS -->
+        <!-- ========================================== -->
+        <div class="app-screen" id="screen-customers" style="display: none;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+            <div>
+              <h1 style="font-size: 24px; color: #fff;">Pengurusan Pelanggan</h1>
+              <p style="color: var(--text-muted); font-size: 13px;">Profil pelanggan, rekod kenderaan, sejarah servis, invois dan bayaran.</p>
+            </div>
+            <button class="btn btn-primary" id="btn-open-add-customer">+ Daftar Pelanggan Baharu</button>
+          </div>
+
+          <div class="card">
+            <div style="margin-bottom: 16px;">
+              <input type="text" id="customer-search-input" class="form-control" placeholder="Cari nama, nombor telefon, IC..." style="max-width: 320px;">
+            </div>
+            <div class="table-responsive">
+              <table class="data-table" id="customers-data-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nama Pelanggan</th>
+                    <th>No. Telefon</th>
+                    <th>WhatsApp</th>
+                    <th>Emel</th>
+                    <th>Alamat</th>
+                    <th>Tindakan</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Populated via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 7: VEHICLES -->
+        <!-- ========================================== -->
+        <div class="app-screen" id="screen-vehicles" style="display: none;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+            <div>
+              <h1 style="font-size: 24px; color: #fff;">Pengurusan Kenderaan & Motosikal</h1>
+              <p style="color: var(--text-muted); font-size: 13px;">Carian pantas melalui nombor pendaftaran plat, casis VIN dan perbatuan.</p>
+            </div>
+            <button class="btn btn-primary" id="btn-open-add-vehicle">+ Daftar Kenderaan Baharu</button>
+          </div>
+
+          <div class="card">
+            <div style="display: flex; gap: 14px; margin-bottom: 16px;">
+              <input type="text" id="vehicle-search-input" class="form-control" placeholder="Cari nombor plat (cth: RR 1234), model, jenama..." style="max-width: 320px;">
+              <select id="vehicle-type-filter" class="form-control" style="max-width: 180px;">
+                <option value="">Semua Jenis</option>
+                <option value="CAR">Kereta (Car)</option>
+                <option value="MOTORCYCLE">Motosikal (Bike)</option>
+              </select>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table" id="vehicles-data-table">
+                <thead>
+                  <tr>
+                    <th>No. Plat</th>
+                    <th>Jenis</th>
+                    <th>Pemilik</th>
+                    <th>Jenama & Model</th>
+                    <th>Varian / CC</th>
+                    <th>Tahun</th>
+                    <th>Warna</th>
+                    <th>Mileage</th>
+                    <th>Tindakan</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Populated via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 8: SERVICE REMINDERS -->
+        <!-- ========================================== -->
+        <div class="app-screen" id="screen-reminders" style="display: none;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+            <div>
+              <h1 style="font-size: 24px; color: #fff;">Peringatan Servis Berkala Pelanggan</h1>
+              <p style="color: var(--text-muted); font-size: 13px;">Tindakan pantas WhatsApp dan salin mesej jemputan servis semula kenderaan.</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="table-responsive">
+              <table class="data-table" id="reminders-data-table">
+                <thead>
+                  <tr>
+                    <th>Pelanggan</th>
+                    <th>No. Telefon</th>
+                    <th>Kenderaan</th>
+                    <th>Kategori</th>
+                    <th>Tarikh Servis Akhir</th>
+                    <th>Tarikh Peringatan Seterusnya</th>
+                    <th>Baki Hari</th>
+                    <th>Tindakan WhatsApp</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Populated via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 9: STOCK LEDGER -->
+        <!-- ========================================== -->
+        <div class="app-screen" id="screen-stock-ledger" style="display: none;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+            <div>
+              <h1 style="font-size: 24px; color: #fff;">Lejar Pergerakan Stok (Audit Trail)</h1>
+              <p style="color: var(--text-muted); font-size: 13px;">Rekod kalis padam setiap transaksi IN, OUT, ADJUSTMENT, dan RETURN.</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="table-responsive">
+              <table class="data-table" id="stock-ledger-table">
+                <thead>
+                  <tr>
+                    <th>Tarikh / Masa</th>
+                    <th>SKU</th>
+                    <th>Nama Alat Ganti</th>
+                    <th>Jenis Pergerakan</th>
+                    <th>Kuantiti</th>
+                    <th>Sebelum</th>
+                    <th>Selepas</th>
+                    <th>Rujukan</th>
+                    <th>Pengguna</th>
+                    <th>Alasan</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Populated via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 10: CASHIER CLOSING -->
+        <!-- ========================================== -->
+        <div class="app-screen" id="screen-cashier-closing" style="display: none;">
+          <div style="margin-bottom: 20px;">
+            <h1 style="font-size: 24px; color: #fff;">Penyata Penutupan Harian Kaunter (Daily Closing)</h1>
+            <p style="color: var(--text-muted); font-size: 13px;">Penyelarasan kutipan tunai fizikal, DuitNow QR, pemindahan bank dan kad.</p>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div class="card">
+              <div class="card-header"><span class="card-title">Kutipan Hari Ini Mengikut Kaedah</span></div>
+              <div id="closing-methods-list" style="margin-bottom: 16px;">
+                <!-- Populated via JS -->
+              </div>
+              <div style="border-top: 1px solid var(--border-color); padding-top: 12px; display: flex; justify-content: space-between; font-size: 16px;">
+                <strong style="color: #fff;">Jumlah Kutipan Kaunter:</strong>
+                <strong style="color: var(--success);" id="closing-total-collected">RM 0.00</strong>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header"><span class="card-title">Borang Penutupan Syif</span></div>
+              <form id="cashier-closing-form">
+                <div class="form-group" style="margin-bottom: 12px;">
+                  <label class="form-label">Baki Tunai Permulaan Laci (Opening Cash RM)</label>
+                  <input type="number" step="0.1" id="closing-opening-cash" class="form-control" value="200.00">
+                </div>
+                <div class="form-group" style="margin-bottom: 12px;">
+                  <label class="form-label">Kutipan Tunai Fizikal Sebenar Dalam Laci (RM)</label>
+                  <input type="number" step="0.1" id="closing-actual-cash" class="form-control" placeholder="Kira tunai fizikal" required>
+                </div>
+                <div class="form-group" style="margin-bottom: 16px;">
+                  <label class="form-label">Catatan / Nota Penutupan</label>
+                  <input type="text" id="closing-notes" class="form-control" placeholder="Contoh: Duit kecil laci cukup, tiada selisih">
+                </div>
+                <div style="display: flex; gap: 10px;">
+                  <button type="submit" class="btn btn-primary btn-lg" style="flex: 1;">🔒 Sahkan Penutupan Harian</button>
+                  <button type="button" class="btn btn-secondary" onclick="window.print()">🖨 Cetak Penyata</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 11: REPORTS -->
+        <!-- ========================================== -->
+        <div class="app-screen" id="screen-reports" style="display: none;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+            <div>
+              <h1 style="font-size: 24px; color: #fff;">Laporan Prestasi & Kewangan Bengkel</h1>
+              <p style="color: var(--text-muted); font-size: 13px;">Analisis jualan, pecahan kos bahan vs untung kasar, dan laporan khas Mengetuk & Mengecat.</p>
+            </div>
+            <div style="display: flex; gap: 10px;">
+              <select id="report-filter-service" class="form-control" style="width: 180px;">
+                <option value="ALL">Semua Kategori</option>
+                <option value="AUTO_SERVICE">🚗 Servis Auto</option>
+                <option value="BODY_PAINT">🎨 Ketuk & Cat</option>
+                <option value="MOTORCYCLE">🏍 Servis Motosikal</option>
+              </select>
+              <button class="btn btn-secondary" onclick="window.print()">🖨 Cetak Laporan (A4)</button>
+            </div>
+          </div>
+
+          <!-- Body & Paint Special Report Highlights -->
+          <div class="card" id="report-bp-special-card" style="border-left: 4px solid var(--accent-paint);">
+            <div class="card-header">
+              <span class="card-title">🎨 Laporan Khusus Mengetuk & Mengecat Kenderaan</span>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px;">
+              <div>
+                <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase;">Jumlah Kerja Cat/Ketuk</div>
+                <div style="font-size: 20px; font-weight: 800; color: #fff;" id="bp-rep-total-jobs">0</div>
+              </div>
+              <div>
+                <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase;">Jumlah Kos Bahan (Primer/Clear)</div>
+                <div style="font-size: 20px; font-weight: 800; color: #fbbf24;" id="bp-rep-materials-cost">RM 0.00</div>
+              </div>
+              <div>
+                <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase;">Jumlah Upah Ketuk & Semburan</div>
+                <div style="font-size: 20px; font-weight: 800; color: #38bdf8;" id="bp-rep-labour-cost">RM 0.00</div>
+              </div>
+              <div>
+                <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase;">Jumlah Hasil (Revenue)</div>
+                <div style="font-size: 20px; font-weight: 800; color: var(--success);" id="bp-rep-revenue">RM 0.00</div>
+              </div>
+              <div>
+                <div style="font-size: 11px; color: var(--text-dim); text-transform: uppercase;">Purata Tempoh Siap</div>
+                <div style="font-size: 20px; font-weight: 800; color: #fff;" id="bp-rep-avg-days">0 Hari</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sales Invoices Report Table -->
+          <div class="card">
+            <div class="card-header">
+              <span class="card-title">Penyata Jualan Invois Rasmi</span>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table" id="report-sales-table">
+                <thead>
+                  <tr>
+                    <th>No. Invois</th>
+                    <th>Kategori</th>
+                    <th>Tarikh</th>
+                    <th>Jumlah Invois (RM)</th>
+                    <th>Deposit (RM)</th>
+                    <th>Jumlah Dibayar (RM)</th>
+                    <th>Baki Tertunggak (RM)</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Populated via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 12: COMPANY SETTINGS & LOGO (ADMIN) -->
+        <!-- ========================================== -->
+        <div class="app-screen" id="screen-settings" style="display: none;">
+          <div style="margin-bottom: 20px;">
+            <h1 style="font-size: 24px; color: #fff;">Tetapan Syarikat & Pengurusan Logo</h1>
+            <p style="color: var(--text-muted); font-size: 13px;">Konfigurasi profil bengkel GM GEAR ARAU, nombor pendaftaran, SST, dan sandaran pangkalan data.</p>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px;">
+            <div class="card">
+              <div class="card-header"><span class="card-title">Maklumat Syarikat GM GEAR ARAU</span></div>
+              <form id="company-settings-form">
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label class="form-label">Nama Syarikat (Lalai)</label>
+                    <input type="text" id="setting-company-name" class="form-control" value="GM GEAR ARAU" required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Nama Perniagaan (Trading Name)</label>
+                    <input type="text" id="setting-trading-name" class="form-control" value="GM GEAR ARAU (Bengkel Automotif & Mengecat)">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">No. Pendaftaran Syarikat (SSM)</label>
+                    <input type="text" id="setting-reg-no" class="form-control" value="202403123456 (003123456-X)">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">No. Telefon</label>
+                    <input type="text" id="setting-phone" class="form-control" value="019-4567890">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Emel Rasmi</label>
+                    <input type="email" id="setting-email" class="form-control" value="gmgearkubangpasu@gmail.com">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Mata Wang</label>
+                    <input type="text" id="setting-currency" class="form-control" value="RM" readonly>
+                  </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 16px;">
+                  <label class="form-label">Alamat Lengkap Bengkel</label>
+                  <input type="text" id="setting-address" class="form-control" value="No. 12, Jalan Arau Indah, 02600 Arau, Perlis">
+                </div>
+
+                <div class="form-grid">
+                  <div class="form-group">
+                    <label class="form-label">Cukai SST</label>
+                    <select id="setting-tax-enabled" class="form-control">
+                      <option value="0">Dimatikan (SST OFF)</option>
+                      <option value="1">Diaktifkan (SST ON)</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Kadar Cukai SST (%)</label>
+                    <input type="number" step="0.1" id="setting-tax-rate" class="form-control" value="6.0">
+                  </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 16px;">
+                  <label class="form-label">Kaki Invois (Invoice Footer Note)</label>
+                  <textarea id="setting-invoice-footer" class="form-control" rows="2"></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-lg">💾 Simpan Tetapan Syarikat</button>
+              </form>
+            </div>
+
+            <!-- Logo & Maintenance -->
+            <div>
+              <div class="card">
+                <div class="card-header"><span class="card-title">Logo Bengkel</span></div>
+                <div style="text-align: center; padding: 10px 0;">
+                  <div id="setting-logo-preview" style="width: 120px; height: 120px; border-radius: 12px; border: 2px dashed var(--border-color); margin: 0 auto 14px auto; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #070a12;">
+                    <span style="font-size: 36px;">⚙️</span>
+                  </div>
+                  <input type="file" id="setting-logo-file" accept="image/*" style="display: none;">
+                  <div style="display: flex; gap: 8px; justify-content: center;">
+                    <button type="button" class="btn btn-sm btn-primary" onclick="document.getElementById('setting-logo-file').click()">
+                      Muat Naik Logo
+                    </button>
+                    <button type="button" class="btn btn-sm btn-danger" id="btn-remove-logo">
+                      Padam Logo
+                    </button>
+                  </div>
+                  <p style="font-size: 11px; color: var(--text-dim); margin-top: 8px;">Logo digunakan automatik pada Invois, Resit, Job Card & Laporan.</p>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-header"><span class="card-title">Sandaran & Pembersihan Data</span></div>
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                  <a href="/api/settings/backup" class="btn btn-secondary" style="width: 100%;">
+                    💾 Muat Turun Sandaran (Backup DB)
+                  </a>
+                  <button type="button" class="btn btn-danger" id="btn-purge-demo-data" style="width: 100%;">
+                    🗑 Padam Data Demo Sahaja
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 13: AUDIT LOG (ADMIN) -->
+        <!-- ========================================== -->
+        <div class="app-screen" id="screen-audit-log" style="display: none;">
+          <div style="margin-bottom: 20px;">
+            <h1 style="font-size: 24px; color: #fff;">Log Audit Sistem (Kalis Padam)</h1>
+            <p style="color: var(--text-muted); font-size: 13px;">Jejak setiap tindakan pengguna: log masuk, penukaran harga, kelulusan invois, stok dan bayaran.</p>
+          </div>
+
+          <div class="card">
+            <div class="table-responsive">
+              <table class="data-table" id="audit-log-table">
+                <thead>
+                  <tr>
+                    <th>Tarikh / Masa</th>
+                    <th>Pengguna</th>
+                    <th>Peranan</th>
+                    <th>Tindakan (Action)</th>
+                    <th>Modul</th>
+                    <th>ID Rekod</th>
+                    <th>Nilai Baharu / Butiran</th>
+                    <th>Alamat IP</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Populated via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SCREEN 14: USER MANAGEMENT (ADMIN) -->
+        <!-- ========================================== -->
+        <div class="app-screen" id="screen-users" style="display: none;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+            <div>
+              <h1 style="font-size: 24px; color: #fff;">Pengurusan Pengguna Bengkel</h1>
+              <p style="color: var(--text-muted); font-size: 13px;">Daftar juruwang, mekanik dan pentadbir sistem dengan had akses masing-masing.</p>
+            </div>
+            <button class="btn btn-primary" id="btn-open-add-user">+ Tambah Pengguna Baharu</button>
+          </div>
+
+          <div class="card">
+            <div class="table-responsive">
+              <table class="data-table" id="users-data-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Nama Penuh</th>
+                    <th>Emel Log Masuk</th>
+                    <th>Peranan</th>
+                    <th>No. Telefon</th>
+                    <th>Log Masuk Terakhir</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- Populated via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </main>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODALS SECTION -->
+  <!-- ========================================================================= -->
+
+  <!-- 1. FINAL PAYMENT MODAL (TRIGGERED DIRECTLY OR FROM INVOICE QR SCAN) -->
+  <div class="modal-overlay" id="payment-modal">
+    <div class="modal-box" style="max-width: 520px; border-color: #10b981;">
+      <div class="modal-header">
+        <span class="modal-title">💵 Penerimaan Bayaran Invois</span>
+        <button class="modal-close-btn" onclick="app.closeModal('payment-modal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: var(--radius-md); padding: 14px; margin-bottom: 16px;">
+          <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px;">
+            <span style="color: var(--text-muted);">No. Invois:</span>
+            <strong style="color: #fff;" id="pay-modal-inv-no">INV-2026-XXXXXX</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px;">
+            <span style="color: var(--text-muted);">Pelanggan / Kenderaan:</span>
+            <span id="pay-modal-customer-vehicle">-</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px;">
+            <span style="color: var(--text-muted);">Kategori Servis:</span>
+            <span id="pay-modal-service-type" class="badge badge-auto">AUTO SERVICE</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 4px;">
+            <span style="color: var(--text-muted);">Jumlah Keseluruhan:</span>
+            <strong id="pay-modal-grand-total">RM 0.00</strong>
+          </div>
+          <div style="display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 6px;">
+            <span style="color: var(--text-muted);">Telah Dibayar (Termasuk Deposit):</span>
+            <strong style="color: #34d399;" id="pay-modal-paid-amount">RM 0.00</strong>
+          </div>
+          <div style="border-top: 1px dashed rgba(16, 185, 129, 0.4); padding-top: 8px; display: flex; justify-content: space-between; font-size: 16px;">
+            <strong style="color: #fff;">Baki Perlu Dibayar:</strong>
+            <strong style="color: #fbbf24; font-size: 18px;" id="pay-modal-balance-due">RM 0.00</strong>
+          </div>
+        </div>
+
+        <form id="record-payment-form">
+          <input type="hidden" id="pay-invoice-id">
+          
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label class="form-label">Jenis Bayaran</label>
+            <select id="pay-type-select" class="form-control" required>
+              <option value="FINAL">Bayaran Akhir Penuh (Baki RM0)</option>
+              <option value="DEPOSIT">Bayaran Deposit</option>
+              <option value="PARTIAL">Bayaran Sebahagian (Partial)</option>
+            </select>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label class="form-label">Jumlah Bayaran (RM) *</label>
+            <input type="number" step="0.01" id="pay-amount-input" class="form-control" style="font-size: 18px; font-weight: 800; color: #34d399;" required>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label class="form-label">Kaedah Pembayaran *</label>
+            <select id="pay-method-select" class="form-control" required>
+              <option value="CASH">💵 Tunai (Cash)</option>
+              <option value="DUITNOW_QR">📱 DuitNow QR (Imbas & Bayar)</option>
+              <option value="BANK_TRANSFER">🏦 Pemindahan Bank (Online Transfer)</option>
+              <option value="CARD">💳 Kad Debit / Kredit</option>
+              <option value="E_WALLET">👛 E-Wallet (TnG eWallet / GrabPay)</option>
+              <option value="OTHER">Lain-lain</option>
+            </select>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 14px;">
+            <label class="form-label">No. Rujukan / Transaksi (Pilihan)</label>
+            <input type="text" id="pay-ref-input" class="form-control" placeholder="Contoh: DN-881923, MBB-998811">
+          </div>
+
+          <div class="form-group" style="margin-bottom: 16px;">
+            <label class="form-label">Catatan</label>
+            <input type="text" id="pay-notes-input" class="form-control" placeholder="Catatan bayaran kaunter">
+          </div>
+
+          <button type="submit" class="btn btn-success btn-lg" style="width: 100%;">
+            ✅ Sahkan Bayaran & Jana Resit
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. QR SCANNER MODAL (FOR INVENTORY PART OR INVOICE PAYMENT) -->
+  <div class="modal-overlay" id="qr-scanner-modal">
+    <div class="modal-box" style="max-width: 480px;">
+      <div class="modal-header">
+        <span class="modal-title">📷 Imbas Kod QR / Kod Bar</span>
+        <button class="modal-close-btn" onclick="app.closeModal('qr-scanner-modal')">&times;</button>
+      </div>
+      <div class="modal-body" style="text-align: center;">
+        <div style="background: #000; border: 2px dashed #0ea5e9; border-radius: var(--radius-md); padding: 24px; margin-bottom: 16px; position: relative;">
+          <div style="font-size: 48px; margin-bottom: 10px;">📷</div>
+          <div style="color: #38bdf8; font-size: 14px; font-weight: 700;">Pengimbas Kamera / Kod Bar Aktif</div>
+          <div style="color: var(--text-dim); font-size: 12px; margin-top: 4px;">Arahkan kamera ke Kod QR Invois atau Kod QR Alat Ganti</div>
+        </div>
+
+        <div class="form-group" style="text-align: left;">
+          <label class="form-label">Atau Masukkan Kod QR / SKU / Token Secara Manual:</label>
+          <div style="display: flex; gap: 8px;">
+            <input type="text" id="manual-qr-input" class="form-control" placeholder="Contoh: QR-INV-0001 atau INV-TOKEN-...">
+            <button type="button" class="btn btn-primary" id="btn-submit-manual-qr">Imbas</button>
+          </div>
+        </div>
+
+        <div id="qr-scan-result" style="display: none; margin-top: 16px; text-align: left; background: rgba(255,255,255,0.04); padding: 14px; border-radius: var(--radius-sm);">
+          <!-- Dynamic scanned item preview -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. INVOICE VIEW & PRINT MODAL (A4) -->
+  <div class="modal-overlay" id="invoice-view-modal">
+    <div class="modal-box modal-lg" style="max-height: 95vh;">
+      <div class="modal-header">
+        <span class="modal-title" id="inv-view-title">Invois Rasmi GM GEAR ARAU</span>
+        <button class="modal-close-btn" onclick="app.closeModal('invoice-view-modal')">&times;</button>
+      </div>
+      <div class="modal-body" id="invoice-printable-area">
+        <!-- Rendered A4 Invoice Layout -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="app.closeModal('invoice-view-modal')">Tutup</button>
+        <button type="button" class="btn btn-primary" onclick="window.print()">🖨 Cetak A4 / PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. RECEIPT VIEW & PRINT MODAL (THERMAL 80MM / A4) -->
+  <div class="modal-overlay" id="receipt-view-modal">
+    <div class="modal-box" style="max-width: 440px;">
+      <div class="modal-header">
+        <span class="modal-title">Resit Bayaran Rasmi</span>
+        <button class="modal-close-btn" onclick="app.closeModal('receipt-view-modal')">&times;</button>
+      </div>
+      <div class="modal-body" id="receipt-printable-area">
+        <!-- Rendered 80mm Thermal Receipt Layout -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="app.closeModal('receipt-view-modal')">Tutup</button>
+        <button type="button" class="btn btn-success" onclick="window.print()">🖨 Cetak Terma 80mm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. PRINT QR LABEL MODAL -->
+  <div class="modal-overlay" id="qr-label-modal">
+    <div class="modal-box" style="max-width: 400px; text-align: center;">
+      <div class="modal-header">
+        <span class="modal-title">Label Kod QR Alat Ganti</span>
+        <button class="modal-close-btn" onclick="app.closeModal('qr-label-modal')">&times;</button>
+      </div>
+      <div class="modal-body" id="qr-label-printable-area">
+        <!-- Rendered QR label -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="app.closeModal('qr-label-modal')">Tutup</button>
+        <button type="button" class="btn btn-primary" onclick="window.print()">🖨 Cetak Label</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. GLOBAL SEARCH MODAL -->
+  <div class="modal-overlay" id="global-search-modal">
+    <div class="modal-box" style="max-width: 600px;">
+      <div class="modal-header">
+        <span class="modal-title">🔍 Carian Pantas Sistem</span>
+        <button class="modal-close-btn" onclick="app.closeModal('global-search-modal')">&times;</button>
+      </div>
+      <div class="modal-body">
+        <input type="text" id="global-search-input" class="form-control" placeholder="Taip nama pelanggan, no plat (RR 1234), no invois, SKU..." style="font-size: 15px; margin-bottom: 16px;">
+        <div id="global-search-results" style="max-height: 380px; overflow-y: auto;">
+          <p style="color: var(--text-dim); text-align: center;">Sila masukkan sekurang-kurangnya 2 aksara untuk mencari.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toast-container"></div>
+
+  <!-- SCRIPTS -->
+  <script src="/static/qr.js"></script>
+  <script src="/static/app.js"></script>
+</body>
+</html>
