@@ -22,6 +22,11 @@ const app = (function () {
   // API CLIENT
   // =========================================================================
   async function api(endpoint, options = {}) {
+    // If running on GitHub Pages or file:// static host, route to client-side Mock API
+    if (window.TrigMockAPI && window.TrigMockAPI.isMock()) {
+      return await window.TrigMockAPI.handle(endpoint, options);
+    }
+
     const headers = {
       "Content-Type": "application/json",
       ...(options.headers || {})
@@ -42,10 +47,17 @@ const app = (function () {
         return { success: false, error: "Unauthorized" };
       }
 
+      if (response.status === 404 && window.TrigMockAPI) {
+        return await window.TrigMockAPI.handle(endpoint, options);
+      }
+
       const data = await response.json();
       return data;
     } catch (err) {
-      console.error("API Error:", err);
+      console.warn("API Network Fallback:", err);
+      if (window.TrigMockAPI) {
+        return await window.TrigMockAPI.handle(endpoint, options);
+      }
       showToast("Ralat sambungan rangkaian ke pelayan.", "danger");
       return { success: false, error: err.message };
     }

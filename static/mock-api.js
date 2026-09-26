@@ -1,0 +1,392 @@
+/**
+ * TRIG PROFESSIONAL - Client-Side Mock API Adapter for GitHub Pages Demo Mode
+ * Automatically enables full offline / static demo interactivity when running on GitHub Pages.
+ */
+(function() {
+  const INITIAL_DB = {"company_settings": [{"id": 1, "company_name": "GM GEAR ARAU", "trading_name": null, "reg_no": null, "phone": null, "email": null, "address": null, "currency": "RM", "tax_enabled": 0, "tax_rate": 6.0, "invoice_prefix": "INV-2026-", "job_prefix": "JOB-2026-", "receipt_prefix": "RCP-2026-", "quote_prefix": "QUO-2026-", "invoice_footer": null, "receipt_footer": null, "low_stock_threshold": 5, "logo_base64": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCIvPjwvc3ZnPg==", "setup_completed": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-26 15:10:09"}], "users": [{"id": 1, "name": "Pengurus Utama (Admin)", "email": "gmgearkubangpasu@gmail.com", "password_hash": "1cd0181de7196c36cd213e022e32caadb07f753a8dfb09fafa606dd7227699c3", "salt": "b837409fcbb288a0bc7a3eacea39fba6", "role": "ADMIN", "phone": "019-4567890", "pin_hash": null, "is_active": 1, "last_login": "2026-09-26 15:10:08", "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 2, "name": "Siti Juruwang", "email": "juruwang@gmgear.my", "password_hash": "0c57853e834937ac9aa3c659bc0d4e0ee6351ad9d9b58c1491495607de399b32", "salt": "33f75fdfaf97ef338ab05099249838f2", "role": "CASHIER", "phone": "017-8899001", "pin_hash": null, "is_active": 1, "last_login": "2026-09-26 15:10:08", "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 3, "name": "Pak Tam Mekanik", "email": "mekanik@gmgear.my", "password_hash": "8faff9116b282d66ea7c14948bb3ff0979237db59994d3eba76b1942465695e8", "salt": "780ea8dead90fcb7142d7f594a4469bd", "role": "MECHANIC", "phone": "012-3344556", "pin_hash": null, "is_active": 1, "last_login": "2026-09-26 15:10:08", "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}], "suppliers": [{"id": 1, "company": "Perlis Auto Spares Sdn Bhd", "contact_person": "En. Roslan Bakar", "phone": "019-4112233", "email": "roslan@perlisauto.com.my", "address": "Kawasan Perindustrian Jejawi, 02600 Arau, Perlis", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 2, "company": "UMW Lubricants & Oil Dist.", "contact_person": "Pn. Lee Mei Ling", "phone": "012-4455667", "email": "orders@umwlubricants.my", "address": "Jalan Tandop, 05400 Alor Setar, Kedah", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 3, "company": "Glasurit & Nippon Paint Supplies", "contact_person": "Mr. David Tan", "phone": "016-7788990", "email": "sales@glasuritpaint.com", "address": "Bukit Mertajam Industrial Zone, Penang", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 4, "company": "Utara Tyre & Battery Specialist", "contact_person": "Hj. Ismail Hashim", "phone": "013-5566778", "email": "utara.tyres@gmail.com", "address": "Pusat Perniagaan Arau, 02600 Arau, Perlis", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 5, "company": "RK & DID Motorcycle Spares Hub", "contact_person": "Mr. Kevin Chong", "phone": "017-6655443", "email": "support@rkspares.my", "address": "Sungai Petani Industrial Area, Kedah", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}], "customers": [{"id": 1, "name": "Ahmad Danial bin Razak", "ic_company": "880512-02-5431", "phone": "012-4567891", "whatsapp": "012-4567891", "email": "danial@gmail.com", "address": "No 15, Taman Arau Idaman, 02600 Arau, Perlis", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 2, "name": "Tan Wei Ming", "ic_company": "790423-08-5123", "phone": "016-4321987", "whatsapp": "016-4321987", "email": "weiming.tan@outlook.com", "address": "No 88, Jalan Pegawai, 01000 Kangar, Perlis", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 3, "name": "Muthu A/L Raman", "ic_company": "851105-02-6019", "phone": "017-5544332", "whatsapp": "017-5544332", "email": "muthu_raman@yahoo.com", "address": "Lot 45, Kampung Guar Nangka, 02500 Mata Ayer, Perlis", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 4, "name": "Siti Nurhaliza binti Kamal", "ic_company": "920314-02-5882", "phone": "013-4499112", "whatsapp": "013-4499112", "email": "siti.kamal@gmail.com", "address": "No 22, Taman Pauh Jaya, 02600 Pauh, Perlis", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 5, "name": "Muhammad Hafiz bin Othman", "ic_company": "950820-02-5111", "phone": "019-5566778", "whatsapp": "019-5566778", "email": "hafiz.othman@gmail.com", "address": "No 3, Lorong Seri Melati, 02600 Arau, Perlis", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 6, "name": "Jason Lee Boon Hock", "ic_company": "901201-07-5321", "phone": "014-9988776", "whatsapp": "014-9988776", "email": "jasonlee@techmy.com", "address": "No 12A, Taman Universiti, 02600 Kubang Gajah, Perlis", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 7, "name": "Nurul Ain binti Zulkifli", "ic_company": "960618-09-5022", "phone": "011-22334455", "whatsapp": "011-22334455", "email": "nurulain96@gmail.com", "address": "No 50, Taman Tambun Tulang, 02700 Simpang Empat, Perlis", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 8, "name": "Chong Kok Keong", "ic_company": "810115-08-5433", "phone": "016-7711223", "whatsapp": "016-7711223", "email": "keong.chong@gmail.com", "address": "No 7, Medan Niaga Kangar, 01000 Kangar, Perlis", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 9, "name": "Azman bin Ibrahim", "ic_company": "750708-02-5091", "phone": "019-3322114", "whatsapp": "019-3322114", "email": "azman.ibrahim@felda.net.my", "address": "Peringkat 2, Felda Chuping, 02500 Chuping, Perlis", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 10, "name": "Kavitha Devi A/P Suresh", "ic_company": "930928-02-5984", "phone": "018-9900112", "whatsapp": "018-9900112", "email": "kavitha.suresh@gmail.com", "address": "No 19, Taman Sena Indah, 01000 Kangar, Perlis", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 14, "name": "Ustaz Mohd Faiz bin Kassim", "ic_company": null, "phone": "019-4889900", "whatsapp": "019-4889900", "email": "faiz.kassim@arau.edu.my", "address": "Taman Jelempok Indah, 02600 Arau, Perlis", "notes": null, "status": "ACTIVE", "is_demo": 0, "created_at": "2026-09-26 15:10:08", "updated_at": "2026-09-26 15:10:08"}], "vehicles": [{"id": 1, "customer_id": 1, "vehicle_type": "CAR", "reg_no": "RR 1234", "make": "Proton", "model": "X50", "variant": "1.5 TGDI Flagship", "year": 2022, "engine": "1.5L Turbo", "engine_cc": 1477, "engine_no": "3G15TD89211", "chassis_vin": "PL1X50TGDI202201", "transmission": "Automatic", "mileage": 42500, "colour": "Ocean Blue", "colour_code": "B99", "fuel_type": "Petrol", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 2, "customer_id": 2, "vehicle_type": "CAR", "reg_no": "KV 5678", "make": "Perodua", "model": "Myvi", "variant": "1.5 H", "year": 2021, "engine": "2NR-VE", "engine_cc": 1496, "engine_no": "2NR998124", "chassis_vin": "PM2M15H202108", "transmission": "Automatic", "mileage": 58300, "colour": "Glittering Silver", "colour_code": "S28", "fuel_type": "Petrol", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 3, "customer_id": 3, "vehicle_type": "CAR", "reg_no": "PK 9012", "make": "Honda", "model": "Civic", "variant": "1.5 VTEC Turbo RS", "year": 2023, "engine": "L15B7", "engine_cc": 1498, "engine_no": "L15B782190", "chassis_vin": "MHRFE1880NJ1022", "transmission": "CVT", "mileage": 26100, "colour": "Ignite Red", "colour_code": "R575M", "fuel_type": "Petrol", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 4, "customer_id": 4, "vehicle_type": "CAR", "reg_no": "RL 3456", "make": "Toyota", "model": "Vios", "variant": "1.5 G", "year": 2020, "engine": "2NR-FE", "engine_cc": 1496, "engine_no": "2NRFE44321", "chassis_vin": "MR053BYG901234", "transmission": "CVT", "mileage": 71200, "colour": "Platinum White Pearl", "colour_code": "089", "fuel_type": "Petrol", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 5, "customer_id": 5, "vehicle_type": "CAR", "reg_no": "RN 7890", "make": "Proton", "model": "Saga", "variant": "1.3 Premium VVT", "year": 2022, "engine": "CamPro VVT", "engine_cc": 1332, "engine_no": "SAGA133290", "chassis_vin": "PL1BT13VVT2022", "transmission": "Automatic", "mileage": 35400, "colour": "Ruby Red", "colour_code": "R44", "fuel_type": "Petrol", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 6, "customer_id": 6, "vehicle_type": "CAR", "reg_no": "KA 2345", "make": "Nissan", "model": "Almera", "variant": "1.0 Turbo VLP", "year": 2021, "engine": "HR10DET", "engine_cc": 999, "engine_no": "HR10DET5541", "chassis_vin": "JN1TDA10T2021", "transmission": "CVT", "mileage": 49800, "colour": "Monarch Orange", "colour_code": "EBD", "fuel_type": "Petrol", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 7, "customer_id": 7, "vehicle_type": "CAR", "reg_no": "RP 6789", "make": "Perodua", "model": "Alza", "variant": "1.5 AV", "year": 2023, "engine": "2NR-VE", "engine_cc": 1496, "engine_no": "2NRVE88712", "chassis_vin": "PM2W15AV2023", "transmission": "D-CVT", "mileage": 18900, "colour": "Vintage Brown", "colour_code": "R72", "fuel_type": "Petrol", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 8, "customer_id": 8, "vehicle_type": "CAR", "reg_no": "KD 8901", "make": "Honda", "model": "HR-V", "variant": "1.5 Turbo V", "year": 2022, "engine": "L15C3", "engine_cc": 1498, "engine_no": "L15C301988", "chassis_vin": "MHRRV3860PJ001", "transmission": "CVT", "mileage": 39100, "colour": "Meteoroid Gray", "colour_code": "NH904M", "fuel_type": "Petrol", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 9, "customer_id": 9, "vehicle_type": "MOTORCYCLE", "reg_no": "RAP 8819", "make": "Yamaha", "model": "Y15ZR", "variant": "V2 Doxou", "year": 2021, "engine": "4-Stroke SOHC", "engine_cc": 150, "engine_no": "G3J8E009182", "chassis_vin": "MH3SG4810K00918", "transmission": "Manual 5-Speed", "mileage": 28500, "colour": "Matte Cyan", "colour_code": "CY1", "fuel_type": "Petrol", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 10, "customer_id": 10, "vehicle_type": "MOTORCYCLE", "reg_no": "KCK 4432", "make": "Honda", "model": "RS150R", "variant": "Repsol Edition", "year": 2020, "engine": "DOHC 4-Valve", "engine_cc": 149, "engine_no": "K56E109823", "chassis_vin": "MH1K56108LK1098", "transmission": "Manual 6-Speed", "mileage": 39400, "colour": "Orange/White Repsol", "colour_code": "REP", "fuel_type": "Petrol", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 11, "customer_id": 1, "vehicle_type": "MOTORCYCLE", "reg_no": "RAA 1010", "make": "Yamaha", "model": "NVX 155", "variant": "ABS Standard", "year": 2023, "engine": "BlueCore VVA", "engine_cc": 155, "engine_no": "G3L4E012399", "chassis_vin": "MH3SG5620P01239", "transmission": "Automatic", "mileage": 14200, "colour": "Silver Petrol", "colour_code": "SLV", "fuel_type": "Petrol", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 12, "customer_id": 4, "vehicle_type": "MOTORCYCLE", "reg_no": "KDH 7721", "make": "Modenas", "model": "Kriss 110", "variant": "Disc Brake", "year": 2019, "engine": "SOHC Air-Cooled", "engine_cc": 110, "engine_no": "AN110E9812", "chassis_vin": "PM3AN110DK1981", "transmission": "Rotary 4-Speed", "mileage": 51200, "colour": "Metallic Blue", "colour_code": "BLU", "fuel_type": "Petrol", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 13, "customer_id": 5, "vehicle_type": "MOTORCYCLE", "reg_no": "RAB 5505", "make": "Honda", "model": "EX5", "variant": "Dream Fi 35th Anniv", "year": 2022, "engine": "PGM-Fi OHC", "engine_cc": 110, "engine_no": "K09E219801", "chassis_vin": "MH1K09104MK2198", "transmission": "Rotary 4-Speed", "mileage": 22100, "colour": "Extravagant Gold", "colour_code": "GLD", "fuel_type": "Petrol", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 20, "customer_id": 14, "vehicle_type": "CAR", "reg_no": "RN 9988", "make": "Proton", "model": "Saga VVT", "variant": null, "year": 2023, "engine": null, "engine_cc": null, "engine_no": null, "chassis_vin": null, "transmission": null, "mileage": 30000, "colour": null, "colour_code": null, "fuel_type": "Petrol", "notes": null, "status": "ACTIVE", "is_demo": 0, "created_at": "2026-09-26 15:10:08", "updated_at": "2026-09-26 15:10:08"}, {"id": 21, "customer_id": 14, "vehicle_type": "CAR", "reg_no": "KV 1122", "make": "Honda", "model": "City", "variant": null, "year": 2021, "engine": null, "engine_cc": null, "engine_no": null, "chassis_vin": null, "transmission": null, "mileage": 0, "colour": "Platinum White", "colour_code": null, "fuel_type": "Petrol", "notes": null, "status": "ACTIVE", "is_demo": 0, "created_at": "2026-09-26 15:10:08", "updated_at": "2026-09-26 15:10:08"}, {"id": 22, "customer_id": 14, "vehicle_type": "MOTORCYCLE", "reg_no": "RAP 3322", "make": "Yamaha", "model": "Y15ZR", "variant": null, "year": null, "engine": null, "engine_cc": 150, "engine_no": "G3J8E99112", "chassis_vin": null, "transmission": null, "mileage": 0, "colour": null, "colour_code": null, "fuel_type": "Petrol", "notes": null, "status": "ACTIVE", "is_demo": 0, "created_at": "2026-09-26 15:10:09", "updated_at": "2026-09-26 15:10:09"}], "inventory": [{"id": 1, "sku": "OIL-SYN-5W40", "qr_id": "QR-INV-0001", "name": "Petronas Syntium 3000 5W-40 (4L)", "category": "Lubricants", "brand": "Petronas", "supplier_id": 2, "cost_price": 110.0, "selling_price": 168.0, "stock_qty": 17.0, "min_stock": 5.0, "reorder_qty": 15.0, "location": "Rak A-1", "unit": "BOTTLE", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-26 15:10:09"}, {"id": 2, "sku": "OIL-MAG-10W40", "qr_id": "QR-INV-0002", "name": "Castrol Magnatec 10W-40 (4L)", "category": "Lubricants", "brand": "Castrol", "supplier_id": 2, "cost_price": 85.0, "selling_price": 135.0, "stock_qty": 14.0, "min_stock": 5.0, "reorder_qty": 12.0, "location": "Rak A-2", "unit": "BOTTLE", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 3, "sku": "OIL-MOTUL-7100", "qr_id": "QR-INV-0003", "name": "Motul 7100 4T 10W-40 100% Synthetic (1L)", "category": "Motorcycle Parts", "brand": "Motul", "supplier_id": 2, "cost_price": 48.0, "selling_price": 75.0, "stock_qty": 25.0, "min_stock": 8.0, "reorder_qty": 20.0, "location": "Rak A-3", "unit": "BOTTLE", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 4, "sku": "OIL-SHELL-AX7", "qr_id": "QR-INV-0004", "name": "Shell Advance 4T AX7 10W-40 (1L)", "category": "Motorcycle Parts", "brand": "Shell", "supplier_id": 2, "cost_price": 22.0, "selling_price": 35.0, "stock_qty": 30.0, "min_stock": 10.0, "reorder_qty": 25.0, "location": "Rak A-4", "unit": "BOTTLE", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 5, "sku": "FIL-OIL-PRT", "qr_id": "QR-INV-0005", "name": "Oil Filter Proton Original (X50/Saga/Persona)", "category": "Engine Parts", "brand": "Proton", "supplier_id": 1, "cost_price": 12.0, "selling_price": 25.0, "stock_qty": 35.0, "min_stock": 10.0, "reorder_qty": 30.0, "location": "Bin B-1", "unit": "PCS", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-26 15:10:09"}, {"id": 6, "sku": "FIL-OIL-P2", "qr_id": "QR-INV-0006", "name": "Oil Filter Perodua Original (Myvi/Alza/Axia)", "category": "Engine Parts", "brand": "Perodua", "supplier_id": 1, "cost_price": 10.0, "selling_price": 22.0, "stock_qty": 40.0, "min_stock": 10.0, "reorder_qty": 30.0, "location": "Bin B-2", "unit": "PCS", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 7, "sku": "FIL-OIL-HND", "qr_id": "QR-INV-0007", "name": "Oil Filter Honda Genuine 15400-RAF-T01", "category": "Engine Parts", "brand": "Honda", "supplier_id": 1, "cost_price": 18.0, "selling_price": 38.0, "stock_qty": 20.0, "min_stock": 6.0, "reorder_qty": 15.0, "location": "Bin B-3", "unit": "PCS", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 8, "sku": "FIL-AIR-X50", "qr_id": "QR-INV-0008", "name": "Air Filter Proton X50 OEM", "category": "Engine Parts", "brand": "Proton", "supplier_id": 1, "cost_price": 28.0, "selling_price": 55.0, "stock_qty": 8.0, "min_stock": 4.0, "reorder_qty": 10.0, "location": "Bin B-4", "unit": "PCS", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 9, "sku": "BRK-PAD-BRM-F", "qr_id": "QR-INV-0009", "name": "Brembo Ceramic Front Brake Pads (Civic/Vios)", "category": "Brake", "brand": "Brembo", "supplier_id": 1, "cost_price": 95.0, "selling_price": 160.0, "stock_qty": 12.0, "min_stock": 4.0, "reorder_qty": 10.0, "location": "Rak C-1", "unit": "SET", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 10, "sku": "BRK-PAD-BDX-F", "qr_id": "QR-INV-0010", "name": "Bendix Metal King Front Brake Pads (Myvi)", "category": "Brake", "brand": "Bendix", "supplier_id": 1, "cost_price": 65.0, "selling_price": 115.0, "stock_qty": 15.0, "min_stock": 5.0, "reorder_qty": 12.0, "location": "Rak C-2", "unit": "SET", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 11, "sku": "BRK-FLUID-DOT4", "qr_id": "QR-INV-0011", "name": "Bosch DOT 4 Brake Fluid (500ml)", "category": "Brake", "brand": "Bosch", "supplier_id": 1, "cost_price": 14.0, "selling_price": 28.0, "stock_qty": 22.0, "min_stock": 6.0, "reorder_qty": 15.0, "location": "Rak C-3", "unit": "BOTTLE", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 12, "sku": "SPK-PLG-IRID", "qr_id": "QR-INV-0012", "name": "NGK Laser Iridium Spark Plug ILZKR7B11", "category": "Engine Parts", "brand": "NGK", "supplier_id": 1, "cost_price": 28.0, "selling_price": 50.0, "stock_qty": 24.0, "min_stock": 8.0, "reorder_qty": 20.0, "location": "Bin D-1", "unit": "PCS", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 13, "sku": "SPK-PLG-MOTO", "qr_id": "QR-INV-0013", "name": "NGK CPR8EA-9 Spark Plug (Y15ZR/RS150R)", "category": "Motorcycle Parts", "brand": "NGK", "supplier_id": 5, "cost_price": 8.5, "selling_price": 18.0, "stock_qty": 45.0, "min_stock": 12.0, "reorder_qty": 30.0, "location": "Bin D-2", "unit": "PCS", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 14, "sku": "CHN-SPK-Y15", "qr_id": "QR-INV-0014", "name": "DID 428HD Sprocket & O-Ring Chain Set Y15ZR", "category": "Motorcycle Parts", "brand": "DID", "supplier_id": 5, "cost_price": 85.0, "selling_price": 145.0, "stock_qty": 8.0, "min_stock": 3.0, "reorder_qty": 8.0, "location": "Rak E-1", "unit": "SET", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 15, "sku": "CHN-SPK-RS150", "qr_id": "QR-INV-0015", "name": "RK Takasago Chain & Sprocket Set RS150R", "category": "Motorcycle Parts", "brand": "RK", "supplier_id": 5, "cost_price": 88.0, "selling_price": 150.0, "stock_qty": 6.0, "min_stock": 3.0, "reorder_qty": 8.0, "location": "Rak E-2", "unit": "SET", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 16, "sku": "TYR-MICH-MOTO", "qr_id": "QR-INV-0016", "name": "Michelin Pilot Street 2 (80/90-17)", "category": "Motorcycle Parts", "brand": "Michelin", "supplier_id": 4, "cost_price": 75.0, "selling_price": 115.0, "stock_qty": 10.0, "min_stock": 4.0, "reorder_qty": 10.0, "location": "Rak T-1", "unit": "PCS", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 17, "sku": "TYR-CONT-CC6", "qr_id": "QR-INV-0017", "name": "Continental ComfortContact CC6 195/55R15", "category": "Tyres", "brand": "Continental", "supplier_id": 4, "cost_price": 140.0, "selling_price": 210.0, "stock_qty": 8.0, "min_stock": 4.0, "reorder_qty": 8.0, "location": "Rak T-2", "unit": "PCS", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 18, "sku": "BAT-AMR-NS60", "qr_id": "QR-INV-0018", "name": "Amaron Hi-Life NS60L Maintenance Free", "category": "Electrical", "brand": "Amaron", "supplier_id": 4, "cost_price": 175.0, "selling_price": 260.0, "stock_qty": 6.0, "min_stock": 3.0, "reorder_qty": 6.0, "location": "Rak BAT-1", "unit": "PCS", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 19, "sku": "BAT-KOYO-5AH", "qr_id": "QR-INV-0019", "name": "Koyo MF Gel Battery YTZ5S (Motorcycle)", "category": "Motorcycle Parts", "brand": "Koyo", "supplier_id": 4, "cost_price": 42.0, "selling_price": 75.0, "stock_qty": 12.0, "min_stock": 4.0, "reorder_qty": 10.0, "location": "Rak BAT-2", "unit": "PCS", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 20, "sku": "CLNT-TOY-RED", "qr_id": "QR-INV-0020", "name": "Toyota Super Long Life Coolant 50/50 (4L)", "category": "Consumables", "brand": "Toyota", "supplier_id": 2, "cost_price": 55.0, "selling_price": 95.0, "stock_qty": 9.0, "min_stock": 4.0, "reorder_qty": 8.0, "location": "Rak A-5", "unit": "BOTTLE", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 21, "sku": "PNT-PRM-2K", "qr_id": "QR-INV-0021", "name": "Nippon Paint 2K Primer Surfacer (1L)", "category": "Primer", "brand": "Nippon", "supplier_id": 3, "cost_price": 45.0, "selling_price": 75.0, "stock_qty": 12.0, "min_stock": 4.0, "reorder_qty": 10.0, "location": "Rak P-1", "unit": "LITER", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 22, "sku": "PNT-CLR-GLAS", "qr_id": "QR-INV-0022", "name": "Glasurit High Gloss Clear Coat 2:1 (1L + Hardener)", "category": "Clear Coat", "brand": "Glasurit", "supplier_id": 3, "cost_price": 85.0, "selling_price": 140.0, "stock_qty": 10.0, "min_stock": 4.0, "reorder_qty": 8.0, "location": "Rak P-2", "unit": "SET", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 23, "sku": "PNT-PUT-POLY", "qr_id": "QR-INV-0023", "name": "Polyester Body Filler / Putty 3kg + Hardener", "category": "Body Repair Materials", "brand": "Evercoat", "supplier_id": 3, "cost_price": 38.0, "selling_price": 65.0, "stock_qty": 14.0, "min_stock": 5.0, "reorder_qty": 10.0, "location": "Rak P-3", "unit": "TIN", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 24, "sku": "PNT-THN-2K", "qr_id": "QR-INV-0024", "name": "Slow Drying 2K Thinner High Grade (5L)", "category": "Consumables", "brand": "Nippon", "supplier_id": 3, "cost_price": 48.0, "selling_price": 80.0, "stock_qty": 11.0, "min_stock": 4.0, "reorder_qty": 8.0, "location": "Rak P-4", "unit": "TIN", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 25, "sku": "SND-PAP-P800", "qr_id": "QR-INV-0025", "name": "3M Wetordry Sandpaper P800", "category": "Sandpaper", "brand": "3M", "supplier_id": 3, "cost_price": 1.2, "selling_price": 2.5, "stock_qty": 80.0, "min_stock": 25.0, "reorder_qty": 50.0, "location": "Kotak S-1", "unit": "PCS", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 26, "sku": "SND-PAP-P1500", "qr_id": "QR-INV-0026", "name": "3M Wetordry Sandpaper P1500", "category": "Sandpaper", "brand": "3M", "supplier_id": 3, "cost_price": 1.3, "selling_price": 2.8, "stock_qty": 75.0, "min_stock": 25.0, "reorder_qty": 50.0, "location": "Kotak S-2", "unit": "PCS", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 27, "sku": "MSK-TAP-24", "qr_id": "QR-INV-0027", "name": "Automotive Masking Tape 24mm x 50m Heat Proof", "category": "Consumables", "brand": "3M", "supplier_id": 3, "cost_price": 3.5, "selling_price": 7.0, "stock_qty": 45.0, "min_stock": 15.0, "reorder_qty": 30.0, "location": "Kotak M-1", "unit": "ROLL", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 28, "sku": "POL-CMP-3M", "qr_id": "QR-INV-0028", "name": "3M Fast Cut Plus Rubbing Compound (1L)", "category": "Paint", "brand": "3M", "supplier_id": 3, "cost_price": 75.0, "selling_price": 125.0, "stock_qty": 7.0, "min_stock": 3.0, "reorder_qty": 6.0, "location": "Rak P-5", "unit": "BOTTLE", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 29, "sku": "WPR-SIL-24", "qr_id": "QR-INV-0029", "name": "Silicone Wiper Blade 24-inch Universal", "category": "Consumables", "brand": "Bosch", "supplier_id": 1, "cost_price": 16.0, "selling_price": 35.0, "stock_qty": 2.0, "min_stock": 5.0, "reorder_qty": 10.0, "location": "Rak W-1", "unit": "PCS", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 30, "sku": "BLB-H4-HAL", "qr_id": "QR-INV-0030", "name": "Osram H4 Night Breaker 12V 60/55W Headlight", "category": "Electrical", "brand": "Osram", "supplier_id": 1, "cost_price": 22.0, "selling_price": 45.0, "stock_qty": 1.0, "min_stock": 4.0, "reorder_qty": 8.0, "location": "Bin E-3", "unit": "PCS", "notes": null, "status": "ACTIVE", "is_demo": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}], "jobs": [{"id": 1, "job_no": "JOB-2026-000001", "service_type": "AUTO_SERVICE", "customer_id": 1, "vehicle_id": 1, "mileage": 42500, "complaint": "Enjin berbunyi kasar semasa idle, servis 40k km overdue", "inspection": "Minyak enjin hitam legam, pad brek depan tinggal 30%", "diagnosis": "Minyak enjin tamat tempoh, pad brek haus", "recommendation": "Tukar minyak full synthetic, filter, dan pad brek", "technician_id": 3, "status": "IN_PROGRESS", "estimated_completion": "2026-09-26 17:00:00", "actual_completion": null, "parts_total": 328.0, "materials_total": 0.0, "labour_total": 70.0, "discount": 0.0, "estimated_total": 398.0, "notes": "Pelanggan minta siap petang ini", "damage_description": null, "repair_method": null, "paint_colour": null, "paint_code": null, "damaged_panels": null, "damage_types": null, "paint_quantity": 0.0, "estimated_days": 1, "is_demo": 1, "created_by": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 2, "job_no": "JOB-2026-000002", "service_type": "BODY_PAINT", "customer_id": 2, "vehicle_id": 2, "mileage": 58300, "complaint": "Langgar tiang tempat letak kereta, bumper depan pecah sikit dan calar kemek di bonnet", "inspection": "Kerosakan panel bahagian depan dan sisi kiri", "diagnosis": "Perlu diketuk, simen putty, primer 2K, sembur cat silver 2K & clear coat 2 lapis", "recommendation": "Full repair & repaint front section", "technician_id": 3, "status": "PAINTING", "estimated_completion": "2026-09-28 18:00:00", "actual_completion": null, "parts_total": 0.0, "materials_total": 280.0, "labour_total": 620.0, "discount": 50.0, "estimated_total": 850.0, "notes": "Warna Silver S28 matching kilang", "damage_description": "Kemek 15cm pada bonet dan calar tajam di bumper", "repair_method": "Mengetuk, Sanding, Putty, Primer 2K, Base Coat, Clear Coat Oven", "paint_colour": "Glittering Silver", "paint_code": "S28", "damaged_panels": "[\"Front Bumper\", \"Bonnet\", \"Fender Kiri (FL)\"]", "damage_types": "[\"Kemek\", \"Calar Dalam\", \"Cat Terkupas\"]", "paint_quantity": 1.5, "estimated_days": 3, "is_demo": 1, "created_by": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 3, "job_no": "JOB-2026-000003", "service_type": "MOTORCYCLE", "customer_id": 9, "vehicle_id": 9, "mileage": 28500, "complaint": "Rantai motor berbunyi kuat dan longgar, minta tukar minyak 4T", "inspection": "Rantai kendur melepasi limit, sprocket tajam, minyak hitam berkeladak", "diagnosis": "Sprocket & rantai haus, perlu tukar set baru dan servis minyak 4T fully synthetic", "recommendation": "Tukar set DID 428HD & Motul 7100", "technician_id": 3, "status": "COMPLETED", "estimated_completion": "2026-09-25 12:00:00", "actual_completion": null, "parts_total": 238.0, "materials_total": 0.0, "labour_total": 30.0, "discount": 8.0, "estimated_total": 260.0, "notes": "Motor kegunaan harian ulang-alik kerja", "damage_description": null, "repair_method": null, "paint_colour": null, "paint_code": null, "damaged_panels": null, "damage_types": null, "paint_quantity": 0.0, "estimated_days": 1, "is_demo": 1, "created_by": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 11, "job_no": "JOB-2026-000004", "service_type": "AUTO_SERVICE", "customer_id": 14, "vehicle_id": 20, "mileage": 30000, "complaint": "Servis 30,000km dan pemeriksaan brek", "inspection": null, "diagnosis": null, "recommendation": null, "technician_id": null, "status": "IN_PROGRESS", "estimated_completion": null, "actual_completion": null, "parts_total": 193.0, "materials_total": 0.0, "labour_total": 40.0, "discount": 0.0, "estimated_total": 233.0, "notes": null, "damage_description": null, "repair_method": null, "paint_colour": null, "paint_code": null, "damaged_panels": "", "damage_types": "", "paint_quantity": 0.0, "estimated_days": 1, "is_demo": 0, "created_by": 1, "created_at": "2026-09-26 15:10:08", "updated_at": "2026-09-26 15:10:08"}, {"id": 12, "job_no": "JOB-2026-000005", "service_type": "BODY_PAINT", "customer_id": 14, "vehicle_id": 21, "mileage": 0, "complaint": "Pintu depan calar teruk & kemek", "inspection": null, "diagnosis": null, "recommendation": null, "technician_id": null, "status": "IN_PROGRESS", "estimated_completion": null, "actual_completion": null, "parts_total": 0.0, "materials_total": 75.0, "labour_total": 450.0, "discount": 0.0, "estimated_total": 525.0, "notes": null, "damage_description": "Kemek 10cm pada pintu depan dan calar fender", "repair_method": "Ketuk, simen putty, primer 2K, sembur cat & clear", "paint_colour": "Platinum White Pearl", "paint_code": "NH883P", "damaged_panels": "[\"Pintu Depan Kiri (FL)\", \"Fender Kiri\"]", "damage_types": "[\"Kemek\", \"Calar Tajam\"]", "paint_quantity": 1.2, "estimated_days": 1, "is_demo": 0, "created_by": 1, "created_at": "2026-09-26 15:10:09", "updated_at": "2026-09-26 15:10:09"}, {"id": 13, "job_no": "JOB-2026-000006", "service_type": "MOTORCYCLE", "customer_id": 14, "vehicle_id": 22, "mileage": 0, "complaint": "Tukar minyak 4T fully synthetic & pasang spark plug baru", "inspection": null, "diagnosis": null, "recommendation": null, "technician_id": null, "status": "IN_PROGRESS", "estimated_completion": null, "actual_completion": null, "parts_total": 93.0, "materials_total": 0.0, "labour_total": 15.0, "discount": 0.0, "estimated_total": 108.0, "notes": null, "damage_description": null, "repair_method": null, "paint_colour": null, "paint_code": null, "damaged_panels": "", "damage_types": "", "paint_quantity": 0.0, "estimated_days": 1, "is_demo": 0, "created_by": 1, "created_at": "2026-09-26 15:10:09", "updated_at": "2026-09-26 15:10:09"}], "job_items": [{"id": 1, "job_id": 1, "item_type": "PART", "inventory_id": 1, "sku": "OIL-SYN-5W40", "name": "Petronas Syntium 3000 5W-40 (4L)", "qty": 1.0, "unit_price": 168.0, "amount": 168.0}, {"id": 2, "job_id": 1, "item_type": "PART", "inventory_id": 5, "sku": "FIL-OIL-PRT", "name": "Oil Filter Proton Original", "qty": 1.0, "unit_price": 25.0, "amount": 25.0}, {"id": 3, "job_id": 1, "item_type": "PART", "inventory_id": 10, "sku": "BRK-PAD-BDX-F", "name": "Bendix Metal King Front Brake Pads", "qty": 1.0, "unit_price": 115.0, "amount": 115.0}, {"id": 4, "job_id": 1, "item_type": "LABOUR", "inventory_id": null, "sku": null, "name": "Upah Servis & Pemasangan Brek", "qty": 1.0, "unit_price": 70.0, "amount": 70.0}, {"id": 5, "job_id": 2, "item_type": "MATERIAL", "inventory_id": 21, "sku": "PNT-PRM-2K", "name": "Nippon Paint 2K Primer Surfacer (1L)", "qty": 1.0, "unit_price": 75.0, "amount": 75.0}, {"id": 6, "job_id": 2, "item_type": "MATERIAL", "inventory_id": 22, "sku": "PNT-CLR-GLAS", "name": "Glasurit Clear Coat 2:1 Set", "qty": 1.0, "unit_price": 140.0, "amount": 140.0}, {"id": 7, "job_id": 2, "item_type": "MATERIAL", "inventory_id": 23, "sku": "PNT-PUT-POLY", "name": "Polyester Body Filler 3kg", "qty": 1.0, "unit_price": 65.0, "amount": 65.0}, {"id": 8, "job_id": 2, "item_type": "LABOUR", "inventory_id": null, "sku": null, "name": "Upah Mengetuk & Simen Panel Rosak", "qty": 1.0, "unit_price": 280.0, "amount": 280.0}, {"id": 9, "job_id": 2, "item_type": "LABOUR", "inventory_id": null, "sku": null, "name": "Upah Cat Oven & Polishing 3M", "qty": 1.0, "unit_price": 340.0, "amount": 340.0}, {"id": 10, "job_id": 3, "item_type": "PART", "inventory_id": 3, "sku": "OIL-MOTUL-7100", "name": "Motul 7100 4T 10W-40 (1L)", "qty": 1.0, "unit_price": 75.0, "amount": 75.0}, {"id": 11, "job_id": 3, "item_type": "PART", "inventory_id": 14, "sku": "CHN-SPK-Y15", "name": "DID 428HD Sprocket & O-Ring Chain Set", "qty": 1.0, "unit_price": 145.0, "amount": 145.0}, {"id": 12, "job_id": 3, "item_type": "PART", "inventory_id": 13, "sku": "SPK-PLG-MOTO", "name": "NGK CPR8EA-9 Spark Plug", "qty": 1.0, "unit_price": 18.0, "amount": 18.0}, {"id": 13, "job_id": 3, "item_type": "LABOUR", "inventory_id": null, "sku": null, "name": "Upah Pasang Rantai, Sprocket & Servis Enjin", "qty": 1.0, "unit_price": 30.0, "amount": 30.0}, {"id": 33, "job_id": 11, "item_type": "PART", "inventory_id": 1, "sku": "OIL-SYN-5W40", "name": "Petronas Syntium 3000 5W-40 (4L)", "qty": 1.0, "unit_price": 168.0, "amount": 168.0}, {"id": 34, "job_id": 11, "item_type": "PART", "inventory_id": 5, "sku": "FIL-OIL-PRT", "name": "Oil Filter Proton Original", "qty": 1.0, "unit_price": 25.0, "amount": 25.0}, {"id": 35, "job_id": 11, "item_type": "LABOUR", "inventory_id": null, "sku": null, "name": "Upah Servis Minyak & Filter", "qty": 1.0, "unit_price": 40.0, "amount": 40.0}, {"id": 36, "job_id": 12, "item_type": "MATERIAL", "inventory_id": 21, "sku": "PNT-PRM-2K", "name": "Nippon Paint 2K Primer", "qty": 1.0, "unit_price": 75.0, "amount": 75.0}, {"id": 37, "job_id": 12, "item_type": "LABOUR", "inventory_id": null, "sku": null, "name": "Upah Mengetuk & Cat Pintu", "qty": 1.0, "unit_price": 450.0, "amount": 450.0}, {"id": 38, "job_id": 13, "item_type": "PART", "inventory_id": 3, "sku": "OIL-MOTUL-7100", "name": "Motul 7100 4T 10W-40 (1L)", "qty": 1.0, "unit_price": 75.0, "amount": 75.0}, {"id": 39, "job_id": 13, "item_type": "PART", "inventory_id": 13, "sku": "SPK-PLG-MOTO", "name": "NGK CPR8EA-9 Spark Plug", "qty": 1.0, "unit_price": 18.0, "amount": 18.0}, {"id": 40, "job_id": 13, "item_type": "LABOUR", "inventory_id": null, "sku": null, "name": "Upah Servis Motosikal", "qty": 1.0, "unit_price": 15.0, "amount": 15.0}], "invoices": [{"id": 1, "invoice_no": "INV-2026-000001", "job_id": 3, "customer_id": 9, "vehicle_id": 9, "service_type": "MOTORCYCLE", "subtotal": 268.0, "discount": 8.0, "tax": 0.0, "grand_total": 260.0, "deposit_amount": 0.0, "paid_amount": 260.0, "balance_due": 0.0, "status": "PAID", "qr_token": "INV-TOKEN-5BF4EC3CA048B7940027A472", "notes": "Telah dibayar penuh via DuitNow QR.", "approved_at": "2026-09-25 15:31:42", "approved_by": 1, "cancelled_at": null, "cancelled_by": null, "cancel_reason": null, "is_demo": 1, "created_by": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 2, "invoice_no": "INV-2026-000002", "job_id": 2, "customer_id": 2, "vehicle_id": 2, "service_type": "BODY_PAINT", "subtotal": 900.0, "discount": 50.0, "tax": 0.0, "grand_total": 850.0, "deposit_amount": 300.0, "paid_amount": 850.0, "balance_due": 0.0, "status": "PAID", "qr_token": "INV-TOKEN-32AB47A37D13233756F1F5A4", "notes": "Deposit cat RM300 telah diterima.", "approved_at": "2026-09-25 15:31:42", "approved_by": 1, "cancelled_at": null, "cancelled_by": null, "cancel_reason": null, "is_demo": 1, "created_by": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-26 15:10:09"}, {"id": 3, "invoice_no": "INV-2026-000003", "job_id": 1, "customer_id": 1, "vehicle_id": 1, "service_type": "AUTO_SERVICE", "subtotal": 378.0, "discount": 0.0, "tax": 0.0, "grand_total": 378.0, "deposit_amount": 0.0, "paid_amount": 0.0, "balance_due": 378.0, "status": "APPROVED", "qr_token": "INV-TOKEN-E12275820D12FC6A00981D95", "notes": "Servis siap, menunggu pengambilan kenderaan oleh pemilik.", "approved_at": "2026-09-25 15:31:42", "approved_by": 1, "cancelled_at": null, "cancelled_by": null, "cancel_reason": null, "is_demo": 1, "created_by": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 4, "invoice_no": "INV-2026-000004", "job_id": null, "customer_id": 3, "vehicle_id": 3, "service_type": "AUTO_SERVICE", "subtotal": 288.0, "discount": 20.0, "tax": 0.0, "grand_total": 268.0, "deposit_amount": 0.0, "paid_amount": 0.0, "balance_due": 268.0, "status": "DRAFT", "qr_token": "INV-TOKEN-7EA4BDA6B393AA3CFF4FF18A", "notes": "Draf invois tukar bateri Amaron Honda Civic.", "approved_at": null, "approved_by": null, "cancelled_at": null, "cancelled_by": null, "cancel_reason": null, "is_demo": 1, "created_by": 2, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 5, "invoice_no": "INV-2026-000005", "job_id": null, "customer_id": 10, "vehicle_id": 10, "service_type": "MOTORCYCLE", "subtotal": 115.0, "discount": 0.0, "tax": 0.0, "grand_total": 115.0, "deposit_amount": 0.0, "paid_amount": 0.0, "balance_due": 115.0, "status": "CANCELLED", "qr_token": "INV-TOKEN-97E2D9962E306EED0B7696D4", "notes": "Pelanggan batalkan pesanan tayar", "approved_at": null, "approved_by": null, "cancelled_at": "2026-09-25 15:31:42", "cancelled_by": 1, "cancel_reason": "Pelanggan minta ganti saiz lain di bengkel lain", "is_demo": 1, "created_by": 1, "created_at": "2026-09-25 15:31:42", "updated_at": "2026-09-25 15:31:42"}, {"id": 8, "invoice_no": "INV-CONCUR-001", "job_id": null, "customer_id": 1, "vehicle_id": 1, "service_type": "AUTO_SERVICE", "subtotal": 168.0, "discount": 0.0, "tax": 0.0, "grand_total": 168.0, "deposit_amount": 0.0, "paid_amount": 0.0, "balance_due": 168.0, "status": "APPROVED", "qr_token": "TOKEN-CONCUR-1", "notes": null, "approved_at": "2026-09-25 15:50:33", "approved_by": 1, "cancelled_at": null, "cancelled_by": null, "cancel_reason": null, "is_demo": 0, "created_by": null, "created_at": "2026-09-25 15:50:33", "updated_at": "2026-09-25 15:50:33"}, {"id": 10, "invoice_no": "INV-2026-000006", "job_id": 11, "customer_id": 14, "vehicle_id": 20, "service_type": "AUTO_SERVICE", "subtotal": 233.0, "discount": 0.0, "tax": 0.0, "grand_total": 233.0, "deposit_amount": 100.0, "paid_amount": 100.0, "balance_due": 133.0, "status": "CANCELLED", "qr_token": "INV-TOKEN-6CF5BE25DEF9F25CEEFE2068", "notes": null, "approved_at": "2026-09-26 15:10:09", "approved_by": 1, "cancelled_at": "2026-09-26 15:10:09", "cancelled_by": 1, "cancel_reason": "Pelanggan tangguhkan servis kenderaan", "is_demo": 0, "created_by": 1, "created_at": "2026-09-26 15:10:09", "updated_at": "2026-09-26 15:10:09"}], "invoice_lines": [{"id": 1, "invoice_id": 1, "item_type": "PART", "inventory_id": 3, "sku": "OIL-MOTUL-7100", "description": "Motul 7100 4T 10W-40 (1L)", "qty": 1.0, "unit_price": 75.0, "amount": 75.0}, {"id": 2, "invoice_id": 1, "item_type": "PART", "inventory_id": 14, "sku": "CHN-SPK-Y15", "description": "DID 428HD Sprocket & O-Ring Chain Set", "qty": 1.0, "unit_price": 145.0, "amount": 145.0}, {"id": 3, "invoice_id": 1, "item_type": "PART", "inventory_id": 13, "sku": "SPK-PLG-MOTO", "description": "NGK CPR8EA-9 Spark Plug", "qty": 1.0, "unit_price": 18.0, "amount": 18.0}, {"id": 4, "invoice_id": 1, "item_type": "LABOUR", "inventory_id": null, "sku": null, "description": "Upah Pasang Rantai, Sprocket & Servis Enjin", "qty": 1.0, "unit_price": 30.0, "amount": 30.0}, {"id": 5, "invoice_id": 2, "item_type": "MATERIAL", "inventory_id": 21, "sku": "PNT-PRM-2K", "description": "Nippon Paint 2K Primer Surfacer (1L)", "qty": 1.0, "unit_price": 75.0, "amount": 75.0}, {"id": 6, "invoice_id": 2, "item_type": "MATERIAL", "inventory_id": 22, "sku": "PNT-CLR-GLAS", "description": "Glasurit Clear Coat 2:1 Set", "qty": 1.0, "unit_price": 140.0, "amount": 140.0}, {"id": 7, "invoice_id": 2, "item_type": "MATERIAL", "inventory_id": 23, "sku": "PNT-PUT-POLY", "description": "Polyester Body Filler 3kg", "qty": 1.0, "unit_price": 65.0, "amount": 65.0}, {"id": 8, "invoice_id": 2, "item_type": "LABOUR", "inventory_id": null, "sku": null, "description": "Upah Mengetuk & Simen Panel Rosak", "qty": 1.0, "unit_price": 280.0, "amount": 280.0}, {"id": 9, "invoice_id": 2, "item_type": "LABOUR", "inventory_id": null, "sku": null, "description": "Upah Cat Oven & Polishing 3M", "qty": 1.0, "unit_price": 340.0, "amount": 340.0}, {"id": 10, "invoice_id": 3, "item_type": "PART", "inventory_id": 1, "sku": "OIL-SYN-5W40", "description": "Petronas Syntium 3000 5W-40 (4L)", "qty": 1.0, "unit_price": 168.0, "amount": 168.0}, {"id": 11, "invoice_id": 3, "item_type": "PART", "inventory_id": 5, "sku": "FIL-OIL-PRT", "description": "Oil Filter Proton Original", "qty": 1.0, "unit_price": 25.0, "amount": 25.0}, {"id": 12, "invoice_id": 3, "item_type": "PART", "inventory_id": 10, "sku": "BRK-PAD-BDX-F", "description": "Bendix Metal King Front Brake Pads", "qty": 1.0, "unit_price": 115.0, "amount": 115.0}, {"id": 13, "invoice_id": 3, "item_type": "LABOUR", "inventory_id": null, "sku": null, "description": "Upah Servis & Pemasangan Brek", "qty": 1.0, "unit_price": 70.0, "amount": 70.0}, {"id": 14, "invoice_id": 4, "item_type": "PART", "inventory_id": 18, "sku": "BAT-AMR-NS60", "description": "Amaron Hi-Life NS60L Maintenance Free", "qty": 1.0, "unit_price": 260.0, "amount": 260.0}, {"id": 15, "invoice_id": 4, "item_type": "LABOUR", "inventory_id": null, "sku": null, "description": "Upah Pemasangan & Ujian Alternator", "qty": 1.0, "unit_price": 28.0, "amount": 28.0}, {"id": 16, "invoice_id": 5, "item_type": "PART", "inventory_id": 16, "sku": "TYR-MICH-MOTO", "description": "Michelin Pilot Street 2 (80/90-17)", "qty": 1.0, "unit_price": 115.0, "amount": 115.0}, {"id": 23, "invoice_id": 8, "item_type": "PART", "inventory_id": 1, "sku": "OIL-SYN-5W40", "description": "Petronas 5W40", "qty": 1.0, "unit_price": 168.0, "amount": 168.0}, {"id": 27, "invoice_id": 10, "item_type": "PART", "inventory_id": 1, "sku": "OIL-SYN-5W40", "description": "Petronas Syntium 3000 5W-40 (4L)", "qty": 1.0, "unit_price": 168.0, "amount": 168.0}, {"id": 28, "invoice_id": 10, "item_type": "PART", "inventory_id": 5, "sku": "FIL-OIL-PRT", "description": "Oil Filter Proton Original", "qty": 1.0, "unit_price": 25.0, "amount": 25.0}, {"id": 29, "invoice_id": 10, "item_type": "LABOUR", "inventory_id": null, "sku": null, "description": "Upah Servis Minyak & Filter", "qty": 1.0, "unit_price": 40.0, "amount": 40.0}], "payments": [{"id": 1, "receipt_no": "RCP-2026-000001", "invoice_id": 1, "amount": 260.0, "payment_method": "DUITNOW_QR", "payment_type": "FINAL", "reference_no": "DN-998811223", "notes": "Bayaran penuh imbasan DuitNow QR kaunter", "is_demo": 1, "created_by": 2, "created_at": "2026-09-25 15:31:42"}, {"id": 2, "receipt_no": "RCP-2026-000002", "invoice_id": 2, "amount": 300.0, "payment_method": "BANK_TRANSFER", "payment_type": "DEPOSIT", "reference_no": "MAYBANK-882190", "notes": "Deposit kerja mengecat & mengetuk", "is_demo": 1, "created_by": 2, "created_at": "2026-09-25 15:31:42"}, {"id": 7, "receipt_no": "RCP-2026-000003", "invoice_id": 10, "amount": 100.0, "payment_method": "CASH", "payment_type": "DEPOSIT", "reference_no": null, "notes": "Deposit tunai permulaan", "is_demo": 0, "created_by": 2, "created_at": "2026-09-26 15:10:09"}, {"id": 8, "receipt_no": "RCP-2026-000004", "invoice_id": 2, "amount": 550.0, "payment_method": "DUITNOW_QR", "payment_type": "FINAL", "reference_no": "DN-TEST-FINAL-99", "notes": null, "is_demo": 0, "created_by": 2, "created_at": "2026-09-26 15:10:09"}], "receipts": [{"id": 1, "receipt_no": "RCP-2026-000001", "payment_id": 1, "invoice_id": 1, "receipt_type": "FINAL", "data_snapshot": "{\"receipt_no\": \"RCP-2026-000001\", \"invoice_no\": \"INV-2026-000001\", \"date\": \"25/09/2026 23:31:42\", \"customer_name\": \"Azman bin Ibrahim\", \"customer_phone\": \"019-3322114\", \"vehicle_reg\": \"RAP 8819\", \"vehicle_model\": \"Yamaha Y15ZR\", \"service_type\": \"MOTORCYCLE\", \"grand_total\": 260.0, \"previous_paid\": 0.0, \"payment_amount\": 260.0, \"total_paid\": 260.0, \"balance_due\": 0.0, \"payment_method\": \"DUITNOW_QR\", \"payment_type\": \"FINAL\", \"cashier_name\": \"Siti Juruwang\", \"items\": [{\"sku\": \"OIL-MOTUL-7100\", \"description\": \"Motul 7100 4T 10W-40 (1L)\", \"qty\": 1, \"unit_price\": 75.0, \"amount\": 75.0}, {\"sku\": \"CHN-SPK-Y15\", \"description\": \"DID 428HD Sprocket & O-Ring Chain Set\", \"qty\": 1, \"unit_price\": 145.0, \"amount\": 145.0}, {\"sku\": \"SPK-PLG-MOTO\", \"description\": \"NGK CPR8EA-9 Spark Plug\", \"qty\": 1, \"unit_price\": 18.0, \"amount\": 18.0}, {\"sku\": \"-\", \"description\": \"Upah Pasang Rantai, Sprocket & Servis Enjin\", \"qty\": 1, \"unit_price\": 30.0, \"amount\": 30.0}]}", "is_demo": 1, "created_at": "2026-09-25 15:31:42"}, {"id": 2, "receipt_no": "RCP-2026-000002", "payment_id": 2, "invoice_id": 2, "receipt_type": "DEPOSIT", "data_snapshot": "{\"receipt_no\": \"RCP-2026-000002\", \"invoice_no\": \"INV-2026-000002\", \"date\": \"25/09/2026 23:31:42\", \"customer_name\": \"Tan Wei Ming\", \"customer_phone\": \"016-4321987\", \"vehicle_reg\": \"KV 5678\", \"vehicle_model\": \"Perodua Myvi 1.5 H\", \"service_type\": \"BODY_PAINT\", \"grand_total\": 850.0, \"previous_paid\": 0.0, \"payment_amount\": 300.0, \"total_paid\": 300.0, \"balance_due\": 550.0, \"payment_method\": \"BANK_TRANSFER\", \"payment_type\": \"DEPOSIT\", \"cashier_name\": \"Siti Juruwang\", \"items\": [{\"sku\": \"PNT-PRM-2K\", \"description\": \"Nippon Paint 2K Primer Surfacer (1L)\", \"qty\": 1, \"unit_price\": 75.0, \"amount\": 75.0}, {\"sku\": \"PNT-CLR-GLAS\", \"description\": \"Glasurit Clear Coat 2:1 Set\", \"qty\": 1, \"unit_price\": 140.0, \"amount\": 140.0}, {\"sku\": \"PNT-PUT-POLY\", \"description\": \"Polyester Body Filler 3kg\", \"qty\": 1, \"unit_price\": 65.0, \"amount\": 65.0}, {\"sku\": \"-\", \"description\": \"Upah Mengetuk & Simen Panel Rosak\", \"qty\": 1, \"unit_price\": 280.0, \"amount\": 280.0}, {\"sku\": \"-\", \"description\": \"Upah Cat Oven & Polishing 3M\", \"qty\": 1, \"unit_price\": 340.0, \"amount\": 340.0}]}", "is_demo": 1, "created_at": "2026-09-25 15:31:42"}, {"id": 7, "receipt_no": "RCP-2026-000003", "payment_id": 7, "invoice_id": 10, "receipt_type": "DEPOSIT", "data_snapshot": "{\"receipt_no\": \"RCP-2026-000003\", \"invoice_no\": \"INV-2026-000006\", \"date\": \"26/09/2026 23:10:09\", \"customer_name\": \"Ustaz Mohd Faiz bin Kassim\", \"customer_phone\": \"019-4889900\", \"vehicle_reg\": \"RN 9988\", \"vehicle_model\": \"Proton Saga VVT\", \"service_type\": \"AUTO_SERVICE\", \"grand_total\": 233.0, \"previous_paid\": 0.0, \"payment_amount\": 100.0, \"total_paid\": 100.0, \"balance_due\": 133.0, \"payment_method\": \"CASH\", \"payment_type\": \"DEPOSIT\", \"cashier_name\": \"Siti Juruwang\", \"items\": [{\"sku\": \"OIL-SYN-5W40\", \"description\": \"Petronas Syntium 3000 5W-40 (4L)\", \"qty\": 1.0, \"unit_price\": 168.0, \"amount\": 168.0}, {\"sku\": \"FIL-OIL-PRT\", \"description\": \"Oil Filter Proton Original\", \"qty\": 1.0, \"unit_price\": 25.0, \"amount\": 25.0}, {\"sku\": null, \"description\": \"Upah Servis Minyak & Filter\", \"qty\": 1.0, \"unit_price\": 40.0, \"amount\": 40.0}]}", "is_demo": 0, "created_at": "2026-09-26 15:10:09"}, {"id": 8, "receipt_no": "RCP-2026-000004", "payment_id": 8, "invoice_id": 2, "receipt_type": "FINAL", "data_snapshot": "{\"receipt_no\": \"RCP-2026-000004\", \"invoice_no\": \"INV-2026-000002\", \"date\": \"26/09/2026 23:10:09\", \"customer_name\": \"Tan Wei Ming\", \"customer_phone\": \"016-4321987\", \"vehicle_reg\": \"KV 5678\", \"vehicle_model\": \"Perodua Myvi\", \"service_type\": \"BODY_PAINT\", \"grand_total\": 850.0, \"previous_paid\": 300.0, \"payment_amount\": 550.0, \"total_paid\": 850.0, \"balance_due\": 0.0, \"payment_method\": \"DUITNOW_QR\", \"payment_type\": \"FINAL\", \"cashier_name\": \"Siti Juruwang\", \"items\": [{\"sku\": \"PNT-PRM-2K\", \"description\": \"Nippon Paint 2K Primer Surfacer (1L)\", \"qty\": 1.0, \"unit_price\": 75.0, \"amount\": 75.0}, {\"sku\": \"PNT-CLR-GLAS\", \"description\": \"Glasurit Clear Coat 2:1 Set\", \"qty\": 1.0, \"unit_price\": 140.0, \"amount\": 140.0}, {\"sku\": \"PNT-PUT-POLY\", \"description\": \"Polyester Body Filler 3kg\", \"qty\": 1.0, \"unit_price\": 65.0, \"amount\": 65.0}, {\"sku\": null, \"description\": \"Upah Mengetuk & Simen Panel Rosak\", \"qty\": 1.0, \"unit_price\": 280.0, \"amount\": 280.0}, {\"sku\": null, \"description\": \"Upah Cat Oven & Polishing 3M\", \"qty\": 1.0, \"unit_price\": 340.0, \"amount\": 340.0}]}", "is_demo": 0, "created_at": "2026-09-26 15:10:09"}]};
+
+  function getStore() {
+    try {
+      const raw = localStorage.getItem('trig_mock_db');
+      if (raw) return JSON.parse(raw);
+    } catch(e) {}
+    localStorage.setItem('trig_mock_db', JSON.stringify(INITIAL_DB));
+    return JSON.parse(JSON.stringify(INITIAL_DB));
+  }
+
+  function saveStore(store) {
+    localStorage.setItem('trig_mock_db', JSON.stringify(store));
+  }
+
+  window.TrigMockAPI = {
+    isMock: function() {
+      return window.location.hostname.includes('github.io') || window.location.protocol === 'file:';
+    },
+
+    handle: async function(endpoint, options) {
+      const url = new URL(endpoint, window.location.origin);
+      const path = url.pathname;
+      const params = url.searchParams;
+      const method = (options.method || 'GET').toUpperCase();
+      const body = options.body ? JSON.parse(options.body) : {};
+      const store = getStore();
+
+      // Artificial short latency for realistic feel
+      await new Promise(r => setTimeout(r, 60));
+
+      if (path === '/api/company-info') {
+        const c = store.company_settings[0] || {};
+        return { success: true, company: c };
+      }
+
+      if (path === '/api/auth/me') {
+        const token = localStorage.getItem('trig_token');
+        if (!token) return { success: false, error: 'Unauthorized' };
+        const u = store.users.find(x => x.email === 'gmgearkubangpasu@gmail.com') || store.users[0];
+        const c = store.company_settings[0] || {};
+        return { success: true, user: u, company: c };
+      }
+
+      if (path === '/api/auth/login') {
+        const email = (body.email || '').trim().toLowerCase();
+        const pwd = (body.password || '').trim();
+        const u = store.users.find(x => x.email.toLowerCase() === email);
+        if (u) {
+          const c = store.company_settings[0] || {};
+          const token = 'mock-demo-token-' + Date.now();
+          return {
+            success: true,
+            token: token,
+            user: { id: u.id, name: u.name, email: u.email, role: u.role, phone: u.phone },
+            company: c,
+            message: 'Selamat datang ke Mod Web Demo (GitHub Pages), ' + u.name + '!'
+          };
+        }
+        return { success: false, error: 'Emel atau kata laluan tidak tepat. Sila gunakan kredensial demo.' };
+      }
+
+      if (path === '/api/auth/logout') {
+        return { success: true };
+      }
+
+      if (path === '/api/dashboard/stats') {
+        const service_type = params.get('service_type') || '';
+        let invs = store.invoices.filter(i => i.status !== 'CANCELLED');
+        let jbs = store.jobs;
+        if (service_type && service_type !== 'ALL') {
+          invs = invs.filter(i => i.service_type === service_type);
+          jbs = jbs.filter(j => j.service_type === service_type);
+        }
+        const today_revenue = invs.reduce((sum, i) => sum + (parseFloat(i.grand_total) || 0), 0);
+        const today_collection = store.payments.reduce((sum, p) => sum + (parseFloat(p.amount) || 0), 0);
+        const outstanding_balance = invs.reduce((sum, i) => sum + (parseFloat(i.balance_due) || 0), 0);
+        const jobs_in_progress = jbs.filter(j => ['IN_PROGRESS', 'PAINTING', 'PREPARATION', 'PRIMER', 'BODY_REPAIR'].includes(j.status)).length;
+        const vehicles_ready = jbs.filter(j => ['COMPLETED', 'QC', 'READY'].includes(j.status)).length;
+        const low_stock_count = store.inventory.filter(i => parseFloat(i.stock_qty) <= parseFloat(i.min_stock)).length;
+
+        const category_stats = {};
+        ['AUTO_SERVICE', 'BODY_PAINT', 'MOTORCYCLE'].forEach(cat => {
+          const catInvs = store.invoices.filter(i => i.service_type === cat && i.status !== 'CANCELLED');
+          const catJobs = store.jobs.filter(j => j.service_type === cat);
+          category_stats[cat] = {
+            revenue: catInvs.reduce((sum, i) => sum + (parseFloat(i.grand_total) || 0), 0),
+            invoices_count: catInvs.length,
+            jobs_count: catJobs.length
+          };
+        });
+
+        return {
+          success: true,
+          stats: {
+            today_revenue,
+            today_collection,
+            outstanding_balance,
+            jobs_today: jbs.length,
+            jobs_in_progress,
+            vehicles_ready,
+            low_stock_count,
+            total_customers: store.customers.length,
+            category_stats
+          }
+        };
+      }
+
+      if (path === '/api/dashboard/charts') {
+        return {
+          success: true,
+          charts: {
+            revenue_trend: [
+              { day: '2026-09-20', daily_total: 450.0 },
+              { day: '2026-09-21', daily_total: 820.0 },
+              { day: '2026-09-22', daily_total: 310.0 },
+              { day: '2026-09-23', daily_total: 1250.0 },
+              { day: '2026-09-24', daily_total: 980.0 },
+              { day: '2026-09-25', daily_total: 1450.0 },
+              { day: '2026-09-26', daily_total: 1890.0 }
+            ],
+            payment_methods: [
+              { payment_method: 'CASH', total: 650.0 },
+              { payment_method: 'DUITNOW_QR', total: 890.0 },
+              { payment_method: 'CARD', total: 350.0 }
+            ],
+            top_parts: store.inventory.slice(0, 5).map(i => ({
+              sku: i.sku,
+              description: i.name,
+              total_qty: 8,
+              total_amount: i.selling_price * 8
+            }))
+          }
+        };
+      }
+
+      if (path === '/api/invoices') {
+        const sType = params.get('service_type') || '';
+        const status = params.get('status') || '';
+        let list = store.invoices.map(inv => {
+          const cust = store.customers.find(c => c.id === inv.customer_id) || {};
+          const veh = store.vehicles.find(v => v.id === inv.vehicle_id) || {};
+          return {
+            ...inv,
+            customer_name: cust.name || 'Pelanggan Demo',
+            customer_phone: cust.phone || '',
+            vehicle_reg: veh.reg_no || 'ND-1234',
+            vehicle_make: veh.make || '',
+            vehicle_model: veh.model || ''
+          };
+        });
+        if (sType && sType !== 'ALL') list = list.filter(i => i.service_type === sType);
+        if (status) list = list.filter(i => i.status === status);
+        return { success: true, invoices: list };
+      }
+
+      if (path.startsWith('/api/invoices/') && !path.includes('/approve') && !path.includes('/cancel')) {
+        const invId = parseInt(path.split('/api/invoices/')[1]);
+        const inv = store.invoices.find(i => i.id === invId);
+        if (!inv) return { success: false, error: 'Invois tidak ditemui.' };
+        const cust = store.customers.find(c => c.id === inv.customer_id) || {};
+        const veh = store.vehicles.find(v => v.id === inv.vehicle_id) || {};
+        const lines = store.invoice_lines.filter(l => l.invoice_id === invId);
+        return {
+          success: true,
+          invoice: {
+            ...inv,
+            customer_name: cust.name,
+            customer_phone: cust.phone,
+            customer_address: cust.address,
+            vehicle_reg: veh.reg_no,
+            vehicle_make: veh.make,
+            vehicle_model: veh.model,
+            vehicle_mileage: veh.mileage,
+            lines: lines
+          }
+        };
+      }
+
+      if (path.includes('/approve')) {
+        const invId = parseInt(path.split('/api/invoices/')[1].split('/')[0]);
+        const inv = store.invoices.find(i => i.id === invId);
+        if (inv) inv.status = 'APPROVED';
+        saveStore(store);
+        return { success: true, message: 'Invois ' + (inv?.invoice_no || '') + ' berjaya diluluskan (Demo Mode)!' };
+      }
+
+      if (path.includes('/cancel')) {
+        const invId = parseInt(path.split('/api/invoices/')[1].split('/')[0]);
+        const inv = store.invoices.find(i => i.id === invId);
+        if (inv) inv.status = 'CANCELLED';
+        saveStore(store);
+        return { success: true, message: 'Invois berjaya dibatalkan (Demo Mode).' };
+      }
+
+      if (path === '/api/jobs') {
+        if (method === 'POST') {
+          const newId = store.jobs.length + 1;
+          const jobNo = 'JOB-2026-' + String(newId).padStart(6, '0');
+          const newJob = {
+            id: newId,
+            job_no: jobNo,
+            service_type: body.service_type || 'AUTO_SERVICE',
+            customer_id: body.customer_id,
+            vehicle_id: body.vehicle_id,
+            technician_id: body.technician_id,
+            status: 'IN_PROGRESS',
+            estimated_total: (body.items || []).reduce((sum, i) => sum + (parseFloat(i.amount) || 0), 0),
+            created_at: new Date().toISOString().replace('T', ' ').substring(0, 19)
+          };
+          store.jobs.unshift(newJob);
+          saveStore(store);
+          return { success: true, job_id: newId, job_no: jobNo, message: 'Kad Kerja dibuka berjaya!' };
+        }
+        const sType = params.get('service_type') || '';
+        let list = store.jobs.map(j => {
+          const cust = store.customers.find(c => c.id === j.customer_id) || {};
+          const veh = store.vehicles.find(v => v.id === j.vehicle_id) || {};
+          const tech = store.users.find(u => u.id === j.technician_id) || {};
+          return {
+            ...j,
+            customer_name: cust.name || '',
+            vehicle_reg: veh.reg_no || '',
+            vehicle_make: veh.make || '',
+            vehicle_model: veh.model || '',
+            technician_name: tech.name || 'Pak Tam Mekanik'
+          };
+        });
+        if (sType && sType !== 'ALL') list = list.filter(j => j.service_type === sType);
+        return { success: true, jobs: list };
+      }
+
+      if (path.includes('/convert-to-invoice')) {
+        const jobId = parseInt(path.split('/api/jobs/')[1].split('/')[0]);
+        const job = store.jobs.find(j => j.id === jobId);
+        const newId = store.invoices.length + 1;
+        const invNo = 'INV-2026-' + String(newId).padStart(6, '0');
+        const grand_total = parseFloat(job?.estimated_total) || 150.0;
+        const newInv = {
+          id: newId,
+          invoice_no: invNo,
+          job_id: jobId,
+          customer_id: job?.customer_id || 1,
+          vehicle_id: job?.vehicle_id || 1,
+          service_type: job?.service_type || 'AUTO_SERVICE',
+          subtotal: grand_total,
+          discount: 0.0,
+          tax: 0.0,
+          grand_total: grand_total,
+          deposit_amount: 0.0,
+          paid_amount: 0.0,
+          balance_due: grand_total,
+          status: 'DRAFT',
+          qr_token: 'QRTOK-' + Date.now(),
+          created_at: new Date().toISOString().replace('T', ' ').substring(0, 19)
+        };
+        store.invoices.unshift(newInv);
+        if (job) job.status = 'COMPLETED';
+        saveStore(store);
+        return { success: true, invoice_id: newId, invoice_no: invNo };
+      }
+
+      if (path === '/api/customers') {
+        const search = (params.get('search') || '').toLowerCase();
+        let list = store.customers;
+        if (search) list = list.filter(c => (c.name || '').toLowerCase().includes(search) || (c.phone || '').includes(search));
+        return { success: true, customers: list };
+      }
+
+      if (path === '/api/vehicles') {
+        const search = (params.get('search') || '').toLowerCase();
+        const type = params.get('type') || '';
+        let list = store.vehicles.map(v => {
+          const cust = store.customers.find(c => c.id === v.customer_id) || {};
+          return { ...v, customer_name: cust.name || '', customer_phone: cust.phone || '' };
+        });
+        if (search) list = list.filter(v => (v.reg_no || '').toLowerCase().includes(search) || (v.make || '').toLowerCase().includes(search));
+        if (type) list = list.filter(v => v.vehicle_type === type);
+        return { success: true, vehicles: list };
+      }
+
+      if (path === '/api/inventory') {
+        const search = (params.get('search') || '').toLowerCase();
+        const cat = params.get('category') || '';
+        const low = params.get('low_stock') === '1';
+        let list = store.inventory;
+        if (search) list = list.filter(i => (i.name || '').toLowerCase().includes(search) || (i.sku || '').toLowerCase().includes(search));
+        if (cat) list = list.filter(i => i.category === cat);
+        if (low) list = list.filter(i => parseFloat(i.stock_qty) <= parseFloat(i.min_stock));
+        return { success: true, inventory: list };
+      }
+
+      if (path === '/api/inventory/qr-lookup') {
+        const code = (params.get('code') || '').toLowerCase();
+        const item = store.inventory.find(i => (i.sku || '').toLowerCase() === code || (i.qr_id || '').toLowerCase() === code);
+        if (item) return { success: true, item: item };
+        return { success: false, error: 'Alat ganti tidak ditemui.' };
+      }
+
+      if (path === '/api/invoices/qr-lookup') {
+        const token = params.get('token');
+        const inv = store.invoices.find(i => i.qr_token === token || i.invoice_no === token);
+        if (inv) {
+          const cust = store.customers.find(c => c.id === inv.customer_id) || {};
+          const veh = store.vehicles.find(v => v.id === inv.vehicle_id) || {};
+          return { success: true, invoice: { ...inv, customer_name: cust.name, vehicle_reg: veh.reg_no } };
+        }
+        return { success: false, error: 'Invois tidak ditemui.' };
+      }
+
+      if (path === '/api/payments') {
+        const invId = parseInt(body.invoice_id);
+        const amount = parseFloat(body.amount) || 0;
+        const inv = store.invoices.find(i => i.id === invId);
+        if (inv) {
+          inv.paid_amount = (parseFloat(inv.paid_amount) || 0) + amount;
+          inv.balance_due = Math.max(0, parseFloat(inv.grand_total) - inv.paid_amount);
+          if (inv.balance_due <= 0.01) {
+            inv.status = 'PAID';
+          } else {
+            inv.status = 'PARTIALLY_PAID';
+          }
+        }
+        const rcpNo = 'RCP-2026-' + String(store.payments.length + 1).padStart(6, '0');
+        const payRecord = {
+          id: store.payments.length + 1,
+          receipt_no: rcpNo,
+          invoice_id: invId,
+          amount: amount,
+          payment_method: body.payment_method || 'CASH',
+          created_at: new Date().toISOString().replace('T', ' ').substring(0, 19)
+        };
+        store.payments.push(payRecord);
+        saveStore(store);
+        return {
+          success: true,
+          message: 'Bayaran RM ' + amount.toFixed(2) + ' berjaya direkodkan!',
+          receipt_no: rcpNo,
+          balance_due: inv ? inv.balance_due : 0
+        };
+      }
+
+      if (path === '/api/cashier/closing') {
+        return {
+          success: true,
+          date: new Date().toISOString().substring(0, 10),
+          cash_collected: 450.0,
+          non_cash_collected: 890.0,
+          total_collected: 1340.0,
+          closing_record: null
+        };
+      }
+
+      if (path === '/api/users') {
+        return { success: true, users: store.users };
+      }
+
+      if (path === '/api/audit-log') {
+        return {
+          success: true,
+          logs: [
+            { id: 1, action: 'LOGIN_SUCCESS', entity_type: 'AUTH', entity_id: 'admin', user_name: 'Pengurus Utama', created_at: '2026-09-26 22:00:00' },
+            { id: 2, action: 'CREATE_JOB', entity_type: 'JOB', entity_id: 'JOB-2026-000001', user_name: 'Pengurus Utama', created_at: '2026-09-26 22:05:00' }
+          ]
+        };
+      }
+
+      if (path === '/api/suppliers') {
+        return { success: true, suppliers: store.suppliers };
+      }
+
+      if (path === '/api/reminders') {
+        return { success: true, reminders: [] };
+      }
+
+      if (path === '/api/stock-movements') {
+        return { success: true, movements: [] };
+      }
+
+      if (path === '/api/global-search') {
+        return { success: true, results: { customers: store.customers.slice(0, 3), vehicles: store.vehicles.slice(0, 3), invoices: store.invoices.slice(0, 3) } };
+      }
+
+      return { success: true, message: 'Operasi demo berjaya dilaksanakan.' };
+    }
+  };
+})();
